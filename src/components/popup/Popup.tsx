@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
 import './popup.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Popup({ addTask, handleClick, nextId }: any) {
     const [title, setTitle] = useState('');
@@ -8,7 +10,14 @@ export default function Popup({ addTask, handleClick, nextId }: any) {
     const [assignee, setAssignee] = useState('');
     const [task, setTask] = useState('');
     const [dueDate, setDueDate] = useState('');
-    const [severity, setSeverity] = useState('');
+    const [severity, setSeverity] = useState('LOW');
+    const [checked, setChecked] = useState(false)
+
+
+    const handleCheck = () => {
+        setChecked(!checked)
+        setSeverity(severity === 'LOW' ? 'HIGH' : 'LOW')
+    }
 
     const handleSubmit = () => {
         if (!title || !tags || !description || !assignee || !task || !dueDate || !severity) {
@@ -26,6 +35,8 @@ export default function Popup({ addTask, handleClick, nextId }: any) {
         handleClick();
       };
 
+    const [startDate, setStartDate] = useState(new Date());
+    
     return (
         <div className='popup'>
             <div className='popup-text'>Add Task</div>
@@ -52,11 +63,14 @@ export default function Popup({ addTask, handleClick, nextId }: any) {
                 </div>
                 <div className='popup-due field'>
                     <span className='above'>Due Date</span>
-                    <input required className='below' placeholder='06-02-2023' onChange={(e) => setDueDate(e.target.value)}/>
+                    <DatePicker selected={startDate} onChange={(date: Date) => {
+                        setStartDate(date)
+                        setDueDate(date.toISOString().substring(0, 10))
+                    } }/>
                 </div>
-                <div className='popup-severity field'>
-                    <span className='above'>Severity</span>
-                    <input required className='below' placeholder='HIGH' onChange={(e) => setSeverity(e.target.value)} />
+                <div className='popup-severity'>
+                    <span className='above'>Mark High Priority</span>
+                    <input onClick={handleCheck} checked={checked} type="checkbox"/>
                 </div>
             </div>
             <div className='popup-select'>

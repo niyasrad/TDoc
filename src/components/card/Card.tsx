@@ -31,7 +31,7 @@ export default function Card( { id, title, assignees, description, task, due, pr
             </div>
             <div className='card-footer'>
                 <div className='footer-tags'>{tagsString}</div>
-                <div className='footer-mark-done' onClick={() => handleDone(id)}>Mark As Done</div>
+                <div className={priority === "LOW" ? "footer-mark-done blue" : "footer-mark-done pink"} onClick={() => handleDone(id)}>Mark As Done</div>
             </div>
         </div>
     )

@@ -39,7 +39,7 @@ export default function CardWrapper() {
             {
                 items && items.map((card) => <Card id={card.id} title={card.title} assignees={card.assignees} description={card.description} task={card.task} due={card.due} priority={card.priority} tags={card.tags} handleDone={handleDone}/>)
             }
-            <div onClick={handleClick} className='card-wrapper-add'>+</div>
+            <div onClick={handleClick} className='card-wrapper-add'>Add Task</div>
             {open && <Popup handleClick={handleClick} addTask={handleAdd} nextId={nextId}/>}
         </div>
     )
