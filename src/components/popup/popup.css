@@ -59,6 +59,7 @@
     background: #C5F4FF;
     border-radius: 34px;
     text-align: center;
+    cursor:pointer;
 }
 .ADD{
     width: 150px;
@@ -67,6 +68,7 @@
     background: #FBBFEE;
     border-radius: 34px;
     text-align: center;
+    cursor:pointer;
 }
 .popup-select{
     display: flex;
