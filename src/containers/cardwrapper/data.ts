@@ -1,0 +1,8 @@
+import { CardItems } from "./CardWrapper";
+
+export const myData: Array<CardItems> = [
+    {id: 1,title:"Investigate response", assignees:["SDE", "SDE-Intern"], description:"The current response time of the server isn’t confirmed to be good.", task:'Investigate the response-time and prepare the according report for improving the response.', due:'09-02-2023', priority:'HIGH', tags:["backend", "inspection", "server-side"]},
+    {id: 2,title:"Investigate response", assignees:["SDE", "SDE-Intern"], description:"The current response time of the server isn’t confirmed to be good.", task:'Investigate the response-time and prepare the according report for improving the response.', due:'09-02-2023', priority:'HIGH', tags:["backend", "inspection", "server-side"]},
+    {id: 3,title:"Investigate response", assignees:["SDE", "SDE-Intern"], description:"The current response time of the server isn’t confirmed to be good.", task:'Investigate the response-time and prepare the according report for improving the response.', due:'09-02-2023', priority:'HIGH', tags:["backend", "inspection", "server-side"]},
+    {id: 4,title:"Investigate response", assignees:["SDE", "SDE-Intern"], description:"The current response time of the server isn’t confirmed to be good.", task:'Investigate the response-time and prepare the according report for improving the response.', due:'09-02-2023', priority:'HIGH', tags:["backend", "inspection", "server-side"]}
+]
