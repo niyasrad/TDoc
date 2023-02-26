@@ -55,6 +55,8 @@ export default function Popup({ addTask, handleClick }: any) {
     const [startDate, setStartDate] = useState(new Date());
     
     return (
+        <>
+        <div className='popup-layer'></div>
         <div className='popup'>
             <div className='popup-text'>Add Task</div>
             <div className='popup-wrapper'>
@@ -96,5 +98,6 @@ export default function Popup({ addTask, handleClick }: any) {
             </div>
             
         </div>
+        </>
     )
 }

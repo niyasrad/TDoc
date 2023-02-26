@@ -1,4 +1,14 @@
+.popup-layer{
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.7;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 .popup{
+    z-index: 999;
     background: #F2F2F2;
     border-radius: 20px;
     width: 90%;
@@ -13,6 +23,7 @@
     position: absolute;
     left: 0;
     right: 0;
+    top: 100px;
     margin: 0 auto;
     animation-name: grow;
     animation-duration: 0.2s;
