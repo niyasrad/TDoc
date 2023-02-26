@@ -30,9 +30,11 @@ function App() {
             <CardWrapper/>
             <div className='app-add-button'></div>
           </> : 
-          <>
-           <div className="loadingio-spinner-eclipse-mtwzhoupqp"><div className="ldio-ynypg32kjys"></div></div>
-          </>
+          <div className="app-center">
+          <div className="loadingio-spinner-eclipse-hudbooqsn0d"><div className="ldio-c1dvvx8rgm">
+          <div></div>
+          </div></div>
+          </div>
         }
         
       </div>
