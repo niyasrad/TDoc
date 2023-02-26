@@ -34,7 +34,7 @@ export default function Popup({ addTask, handleClick }: any) {
             priority: severity, 
             tags:tags.split(",").map((tag) => tag.trim())
         };
-        axios.post('http://localhost:8080/task', taskBody)
+        axios.post('https://tdoc.onrender.com/task', taskBody)
         .then(response => {
             console.log(response);
         })
