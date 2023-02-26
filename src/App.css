@@ -11,3 +11,35 @@ html{
 .app-logo img{
   height: 200px;
 }
+@keyframes ldio-ynypg32kjys {
+  0% { transform: rotate(0deg) }
+  50% { transform: rotate(180deg) }
+  100% { transform: rotate(360deg) }
+}
+.ldio-ynypg32kjys div {
+  position: absolute;
+  animation: ldio-ynypg32kjys 1s linear infinite;
+  width: 172.85999999999999px;
+  height: 172.85999999999999px;
+  top: 14.069999999999999px;
+  left: 14.069999999999999px;
+  border-radius: 50%;
+  box-shadow: 0 8.04px 0 0 #1d0e0b;
+  transform-origin: 86.42999999999999px 90.44999999999999px;
+}
+.loadingio-spinner-eclipse-mtwzhoupqp {
+  width: 201px;
+  height: 201px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+.ldio-ynypg32kjys {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-ynypg32kjys div { box-sizing: content-box; }

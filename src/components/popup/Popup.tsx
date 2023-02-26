@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import './popup.css';
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
-export default function Popup({ addTask, handleClick, nextId }: any) {
+export default function Popup({ addTask, handleClick }: any) {
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState('');
     const [description, setDescription] = useState('');
     const [assignee, setAssignee] = useState('');
     const [task, setTask] = useState('');
-    const [dueDate, setDueDate] = useState('');
+    const [dueDate, setDueDate] = useState<Date>(new Date());
     const [severity, setSeverity] = useState('LOW');
     const [checked, setChecked] = useState(false)
 
@@ -24,15 +25,31 @@ export default function Popup({ addTask, handleClick, nextId }: any) {
           alert('Please fill all fields');
           return;
         }
-        addTask({id: nextId, title: title, assignees: assignee.split(",").map((assignee) => assignee.trim()), description: description, task: task, due: dueDate, priority: severity, tags:tags.split(",").map((tag) => tag.trim())});
+        const taskBody = {
+            title: title,
+            assignees: assignee.split(",").map((assignee) => assignee.trim()),
+            description: description,
+            task: task, 
+            due: dueDate, 
+            priority: severity, 
+            tags:tags.split(",").map((tag) => tag.trim())
+        };
+        axios.post('http://localhost:8080/task', taskBody)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        })
         setTitle('');
         setTags('');
         setDescription('');
         setAssignee('');
         setTask('');
-        setDueDate('');
+        setDueDate(new Date());
         setSeverity('');
         handleClick();
+        addTask();
       };
 
     const [startDate, setStartDate] = useState(new Date());
@@ -65,7 +82,7 @@ export default function Popup({ addTask, handleClick, nextId }: any) {
                     <span className='above'>Due Date</span>
                     <DatePicker selected={startDate} onChange={(date: Date) => {
                         setStartDate(date)
-                        setDueDate(date.toISOString().substring(0, 10))
+                        setDueDate(date)
                     } }/>
                 </div>
                 <div className='popup-severity'>
