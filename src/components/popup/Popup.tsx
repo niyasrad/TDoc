@@ -48,8 +48,8 @@ export default function Popup({ addTask, handleClick }: any) {
         setTask('');
         setDueDate(new Date());
         setSeverity('');
-        handleClick();
         addTask();
+        handleClick();
       };
 
     const [startDate, setStartDate] = useState(new Date());
