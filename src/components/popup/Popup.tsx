@@ -34,7 +34,7 @@ export default function Popup({ addTask, handleClick }: any) {
             priority: severity, 
             tags:tags.split(",").map((tag) => tag.trim())
         };
-        axios.post('https://tdoc.onrender.com/task', taskBody)
+        axios.post('https://tdoc.onrender.com/tasks/create', taskBody)
         .then(response => {
             console.log(response);
             setTitle('');

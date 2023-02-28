@@ -38,7 +38,7 @@ export default function CardWrapper() {
     }
     useEffect( () => {
         console.log(query);
-        axios.get('https://tdoc.onrender.com/tasks', { params: query })
+        axios.get('https://tdoc.onrender.com/tasks/list', { params: query })
         .then ((res) => res.data)
         .then ((data) => {
             console.log(data)

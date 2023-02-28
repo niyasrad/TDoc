@@ -21,7 +21,7 @@ export default function Card( { _id, title, assignees, description, task, due, p
 
     const handleDelete = async () => {
         try {
-            await axios.post('https://tdoc.onrender.com/delete', { _id })
+            await axios.post('https://tdoc.onrender.com/tasks/delete', { _id })
         } catch(err) {
             console.log(err)
         }
