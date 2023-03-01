@@ -18,27 +18,32 @@ export interface CardItems{
     tags: Array<string>,
     handleDel: any
 }
-export default function CardWrapper() {
+
+interface Props {
+    token: string
+}
+
+export default function CardWrapper({ token }: Props) {
 
     const [open, setOpen] = useState<boolean>(false);
     const [items, setItems]= useState<Array<CardItems>>([])
     const [startDate, setStartDate] = useState(new Date());
     const [query, setQuery] = useState<any>({});
     const [forcedUpdate, setForced] = useState<boolean>(false);
+
     const handleAdd = () => {
         setForced(!forcedUpdate);
     }
-
     const handleClick = () => {
         setOpen(!open);
     }
-
     const handleDel = () => {
         setForced(!forcedUpdate)
     }
+
     useEffect( () => {
         console.log(query);
-        axios.get('https://tdoc.onrender.com/tasks/list', { params: query })
+        axios.get('https://tdoc.onrender.com/tasks/list', { params: { ...query, token}})
         .then ((res) => res.data)
         .then ((data) => {
             console.log(data)
@@ -65,10 +70,10 @@ export default function CardWrapper() {
         <div className='card-wrapper'>
             {
                 items && 
-                items.map((card) => <Card _id={card._id} title={card.title} assignees={card.assignees} description={card.description} task={card.task} due={card.due} priority={card.priority} tags={card.tags} handleDel={handleDel}/>)
+                items.map((card) => <Card _id={card._id} title={card.title} assignees={card.assignees} description={card.description} task={card.task} due={card.due} priority={card.priority} tags={card.tags} handleDel={handleDel} token={token}/>)
             }
             <div onClick={handleClick} className='card-wrapper-add'>Add Task</div>
-            {open && <Popup handleClick={handleClick} addTask={handleAdd}/>}
+            {open && <Popup handleClick={handleClick} addTask={handleAdd} token={token}/>}
         </div>
         </>
     )

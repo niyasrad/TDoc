@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import './card.css';
 
-
 interface CardProps{
     _id: string,
     title: string,
@@ -12,16 +11,17 @@ interface CardProps{
     due: Date,
     priority: "HIGH" | "LOW",
     tags: Array<string>,
-    handleDel: any
+    handleDel: any,
+    token: string
 }
-export default function Card( { _id, title, assignees, description, task, due, priority, tags, handleDel }: CardProps) {
+export default function Card( { _id, title, assignees, description, task, due, priority, tags, handleDel, token }: CardProps) {
 
     const assigneesString = assignees.map(str => `@${str}`).join(", ");
     const tagsString = tags.map(str => `#${str}`).join(", ");
 
     const handleDelete = async () => {
         try {
-            await axios.post('https://tdoc.onrender.com/tasks/delete', { _id })
+            await axios.post('https://tdoc.onrender.com/tasks/delete', { _id, token })
         } catch(err) {
             console.log(err)
         }

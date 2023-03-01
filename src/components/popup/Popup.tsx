@@ -4,7 +4,7 @@ import './popup.css';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
-export default function Popup({ addTask, handleClick }: any) {
+export default function Popup({ addTask, handleClick, token }: any) {
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState('');
     const [description, setDescription] = useState('');
@@ -32,7 +32,8 @@ export default function Popup({ addTask, handleClick }: any) {
             task: task, 
             due: dueDate, 
             priority: severity, 
-            tags:tags.split(",").map((tag) => tag.trim())
+            tags:tags.split(",").map((tag) => tag.trim()),
+            token: token
         };
         axios.post('https://tdoc.onrender.com/tasks/create', taskBody)
         .then(response => {
