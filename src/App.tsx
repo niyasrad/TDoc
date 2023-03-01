@@ -28,6 +28,12 @@ function App() {
         if (err.response.status === 401) {
           setAuth(false)
           setToken('')
+          localStorage.removeItem("token");
+        }
+        if (err.response.status === 400) {
+          setAuth(false)
+          setToken('')
+          localStorage.removeItem("token");
         }
       })
     } catch (err) {
