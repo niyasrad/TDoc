@@ -20,10 +20,11 @@ export interface CardItems{
 }
 
 interface Props {
-    token: string
+    token: string,
+    handleSignOut: any
 }
 
-export default function CardWrapper({ token }: Props) {
+export default function CardWrapper({ token, handleSignOut }: Props) {
 
     const [open, setOpen] = useState<boolean>(false);
     const [items, setItems]= useState<Array<CardItems>>([])
@@ -55,6 +56,7 @@ export default function CardWrapper({ token }: Props) {
     }, [query, forcedUpdate])
     return (
         <>
+        <div onClick={handleSignOut} className='card-wrapper-signout'>Sign Out</div>
         <div className='card-wrapper-filter'>
                 <input className='card-wrapper-search' placeholder='Search Task' onChange={(e) => {
                     setQuery({...query, task: e.target.value})

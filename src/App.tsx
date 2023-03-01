@@ -11,7 +11,12 @@ function App() {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [authenticated, setAuth] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
-
+  
+  const handleSignOut = () => {
+    setAuth(false)
+    setToken('')
+    localStorage.removeItem("token");
+  }
   useEffect(() => {
     try {
       const token = localStorage.getItem('token');
@@ -27,11 +32,13 @@ function App() {
       .catch(err => {
         if (err.response.status === 401) {
           setAuth(false)
+          setLoaded(true)
           setToken('')
           localStorage.removeItem("token");
         }
         if (err.response.status === 400) {
           setAuth(false)
+          setLoaded(true)
           setToken('')
           localStorage.removeItem("token");
         }
@@ -57,7 +64,7 @@ function App() {
       <div className='app-main'>
         {loaded ?
           authenticated ? 
-            <CardWrapper token={token}/>
+            <CardWrapper token={token} handleSignOut={handleSignOut}/>
             :
             <Authentication onauth={onAuth} />
            : 
