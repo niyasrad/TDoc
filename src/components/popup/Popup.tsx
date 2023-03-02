@@ -37,7 +37,6 @@ export default function Popup({ addTask, handleClick, token }: any) {
         };
         axios.post('https://tdoc.onrender.com/tasks/create', taskBody)
         .then(response => {
-            console.log(response);
             setTitle('');
             setTags('');
             setDescription('');

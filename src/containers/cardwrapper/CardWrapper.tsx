@@ -43,11 +43,9 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
     }
 
     useEffect( () => {
-        console.log(query);
-        axios.get('https://tdoc.onrender.com/tasks/list', { params: { ...query, token}})
+        axios.post('https://tdoc.onrender.com/tasks/list', { ...query, token})
         .then ((res) => res.data)
         .then ((data) => {
-            console.log(data)
             setItems(data.tasks)
         })
         .catch((err) => {
