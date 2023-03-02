@@ -5,6 +5,7 @@ import CardWrapper from './containers/cardwrapper/CardWrapper';
 import axios, { AxiosError } from 'axios';
 import Authentication from './containers/authentication/Authentication';
 import { setTokenSourceMapRange } from 'typescript';
+import Cookies from 'js-cookie';
 
 function App() {
 
@@ -15,11 +16,11 @@ function App() {
   const handleSignOut = () => {
     setAuth(false)
     setToken('')
-    localStorage.removeItem("token");
+    Cookies.remove('token');
   }
   useEffect(() => {
     try {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');;
       if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }
@@ -34,13 +35,13 @@ function App() {
           setAuth(false)
           setLoaded(true)
           setToken('')
-          localStorage.removeItem("token");
+          Cookies.remove('token');
         }
         if (err.response.status === 400) {
           setAuth(false)
           setLoaded(true)
           setToken('')
-          localStorage.removeItem("token");
+          Cookies.remove('token');
         }
       })
     } catch (err) {
@@ -50,7 +51,7 @@ function App() {
 
   const onAuth = async (token : string) => {
     await setToken(token);
-    localStorage.setItem('token', token);
+    Cookies.set('token', token);
     setAuth(true);
   }
   return (
