@@ -1,0 +1,136 @@
+.sidebar{
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+    background-color: #FBBFEE;
+}
+.sidebar-mobile{
+    display: none;
+}
+.sidebar-logo{
+    width: 150px;
+}
+.sidebar-select-wrap{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+.sidebar-selector{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    cursor: pointer;
+}
+.selector-option{
+    height: 40px;
+    padding-left: 20px;
+    line-height: 40px;
+    width: 80%;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
+    z-index: 999;
+    transition: all 0.1s ease-in-out;
+}
+.selector-bg{
+    background: #515151;
+    border: 1px solid #454242;
+    width: 80%;
+    height: 40px;
+    position: absolute;
+    padding-left: 20px;
+    transition: all 0.1s ease-in-out;
+}
+.selector-option:hover{
+    background-color: black;
+    color: white;
+    transform: translate(10px, 10px);
+}
+.selector-option.active{
+    background-color: #5C0969;
+    color: white;
+}
+.selector-option.active + .selector-bg{
+    transform: translate(10px, 10px);
+    background-color: white;
+}
+
+.sidebar-user{
+    position: absolute;
+    bottom: 50px;
+}
+.user-username{
+    text-align: center;
+    line-height: 35px;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 15px;
+}
+.user-svg{
+    width: 30px;
+    height: 30px;
+}
+.user-signout{
+    cursor: pointer;
+    height: 40px;
+    width: 150px;
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    background: #5C0969;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 21px;
+    transition: all 0.1s ease-in-out;
+}
+.user-signout:hover{
+    background: white;
+    color: black;
+}
+.sidebar-bg{
+    display: none;
+}
+@media only screen and (max-width: 990px) {
+    .sidebar{
+        display: none;
+    }
+    .sidebar-mobile{
+        z-index: 999;
+        width: 280px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        align-items: center;
+        background-color: #FBBFEE;
+    }
+    .sidebar-bg.active{
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        z-index: 998;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+    .sidebar-svg {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+}

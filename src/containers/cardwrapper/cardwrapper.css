@@ -52,6 +52,8 @@
     border-color: transparent;
 }
 .card-wrapper-filter{
+    margin-left: 280px;
+    margin-top: 100px;
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -60,4 +62,10 @@
 }
 .react-datepicker-wrapper{
     width: unset;
+}
+
+@media only screen and (max-width: 990px) {
+    .card-wrapper-filter{
+        margin-left: 0px;
+    }
 }

@@ -54,8 +54,8 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
     }, [query, forcedUpdate])
     return (
         <>
-        <div onClick={handleSignOut} className='card-wrapper-signout'>Sign Out</div>
-        <div className='card-wrapper-filter'>
+        {/* <div onClick={handleSignOut} className='card-wrapper-signout'>Sign Out</div> */}
+        {/* <div className='card-wrapper-filter'>
                 <input className='card-wrapper-search' placeholder='Search Task' onChange={(e) => {
                     setQuery({...query, task: e.target.value})
                 }} />
@@ -66,7 +66,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                     setStartDate(date);
                     setQuery({...query, due: date})
                 } }/>
-        </div>
+        </div> */}
         <div className='card-wrapper'>
             {
                 items && 
