@@ -1,30 +1,29 @@
 .card-surface{
-    width: 350px;
-    height: 500px; 
+    width: 400px;
+    max-height: 386px; 
+    height: auto;
     background: #FFFFFF;
     box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
     border-radius: 15px;  
     display: flex;
     flex-direction: column;
     justify-content: space-between;   
+    cursor: pointer;
+}
+.pinkglow{
+    box-shadow: 0px 4px 25px #670557;
 }
 .card-main{
     padding: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    gap: 10px;
+    gap: 30px;
 }   
 .card-title{
     padding-top: 20px;
     font-weight: 600;
-    font-size: 32px;
-}
-.card-assignees{
-    padding-top: 10px;
-    padding-bottom: 20px;
-    font-weight: 400;
-    font-size: 20px;
+    font-size: 24px;
 }
 .card-desc-box{
     background-color: #F1F1F1;
@@ -37,11 +36,11 @@
 }
 .card-task{
     font-size: 16px;
-    padding-top: 20px;
+    padding-top: 5px;
 }
 .card-due{
     font-weight: 400;
-    font-size: 20px;    
+    font-size: 16px;   
 }
 .card-footer{
     background: #515151;
@@ -56,17 +55,32 @@
 }
 .footer-mark-done{
     border-radius: 12px;
-    height: 62px;
-    font-size: 20px;
+    height: 52px;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: black;
     cursor:pointer;
+    transition: all 0.2s ease-in-out;
+}
+.footer-mark-done:hover{
+    background-color: #5C0969;
+    color: white;
 }
 .blue{
     background: #C5F4FF;
 }
 .pink{
     background: #FBBFEE;
+}
+.due-bold{
+    font-weight: 700;
+    font-size: 18px;
+}
+@media only screen and (max-width: 990px) {
+    .card-surface{
+        width: 300px;
+        height: auto;
+    }
 }

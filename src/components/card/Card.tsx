@@ -1,23 +1,31 @@
 import axios from "axios";
-import React from "react";
+import { motion } from "framer-motion";
+import React, { useState } from "react";
 import './card.css';
 
 interface CardProps{
     _id: string,
     title: string,
-    assignees: Array<string>,
     description: string,
     task: string,
     due: Date,
     priority: "HIGH" | "LOW",
-    tags: Array<string>,
     handleDel: any,
     token: string
 }
-export default function Card( { _id, title, assignees, description, task, due, priority, tags, handleDel, token }: CardProps) {
+export default function Card( { _id, title, description, task, due, priority, handleDel, token }: CardProps) {
 
-    const assigneesString = assignees.map(str => `@${str}`).join(", ");
-    const tagsString = tags.map(str => `#${str}`).join(", ");
+    const variants = {
+        open: {
+            height: "auto",
+            opacity: 1,
+            y: 0,
+            transition: { type: "spring", stiffness: 200, damping: 14 }
+        },
+        closed: { opacity: 0, height: "0", y: -20, transition: { duration: 0.2 } }
+    };
+    const day = new Date(due).toLocaleString();
+    const [expandTask, setExpandTask] = useState(false);
 
     const handleDelete = async () => {
         try {
@@ -28,19 +36,33 @@ export default function Card( { _id, title, assignees, description, task, due, p
         handleDel();
     }
     return (
-        <div className='card-surface'>
+        <div className={priority === "HIGH" ? "card-surface pinkglow" : "card-surface blueglow"} onClick={() => setExpandTask(!expandTask)} >
             <div className='card-main'>
                 <div className='card-title'>{title}</div>
-                <div className='card-assignees'>{assigneesString}</div>
+                <div className='card-due'>Due on <span className='due-bold'>{day.split(',')[0]}</span></div>
                 <div className='card-desc-box'>
                     <span className='desc-box-desc'>{description}</span>
                 </div>
-                <div className='card-task'>{task}</div>
-                <div className='card-due'>Due on {new Date(due).toDateString()}</div>
+                <motion.div
+                    className='card-task-holder'
+                    variants={variants}
+                    initial="closed"
+                    animate={expandTask ? "open" : "closed"}
+                >
+                    <div className='card-task'>{task}</div>
+                </motion.div>
+                
             </div>
             <div className='card-footer'>
-                <div className='footer-tags'>{tagsString}</div>
-                <div className={priority === "LOW" ? "footer-mark-done blue" : "footer-mark-done pink"} onClick={handleDelete}>Mark As Done</div>
+                <div className={priority === "LOW" ? "footer-mark-done blue" : "footer-mark-done pink"} 
+                onClick={
+                    (e) => {
+                        e.preventDefault();
+                        handleDelete();
+                    }
+                    
+                }
+                >Mark As Done</div>
             </div>
         </div>
     )

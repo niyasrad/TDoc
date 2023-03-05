@@ -6,9 +6,8 @@ import axios from "axios";
 
 export default function Popup({ addTask, handleClick, token }: any) {
     const [title, setTitle] = useState('');
-    const [tags, setTags] = useState('');
     const [description, setDescription] = useState('');
-    const [assignee, setAssignee] = useState('');
+    const [category, setCategory] = useState('');
     const [task, setTask] = useState('');
     const [dueDate, setDueDate] = useState<Date>(new Date());
     const [severity, setSeverity] = useState('LOW');
@@ -21,26 +20,24 @@ export default function Popup({ addTask, handleClick, token }: any) {
     }
 
     const handleSubmit = () => {
-        if (!title || !tags || !description || !assignee || !task || !dueDate || !severity) {
+        if (!title || !description  || !task || !dueDate || !severity) {
           alert('Please fill all fields');
           return;
         }
         const taskBody = {
             title: title,
-            assignees: assignee.split(",").map((assignee) => assignee.trim()),
             description: description,
             task: task, 
             due: dueDate, 
             priority: severity, 
-            tags:tags.split(",").map((tag) => tag.trim()),
+            category: category,
             token: token
         };
         axios.post('https://tdoc.onrender.com/tasks/create', taskBody)
         .then(response => {
             setTitle('');
-            setTags('');
             setDescription('');
-            setAssignee('');
+            setCategory('');
             setTask('');
             setDueDate(new Date());
             setSeverity('');
@@ -66,15 +63,11 @@ export default function Popup({ addTask, handleClick, token }: any) {
                 </div>
                 <div className='popup-tags field'>
                     <span className='above'>Filter Tags</span>
-                    <input required className='below' placeholder='mark, backend' onChange={(e) => setTags(e.target.value)} />
+                    <input required className='below' placeholder='Personal' onChange={(e) => setCategory(e.target.value)} />
                 </div>
                 <div className='popup-desc field'>
                     <span className='above'>Task Description</span>
                     <input required className='below' placeholder='Description of the task..' onChange={(e) => setDescription(e.target.value)}/>
-                </div>
-                <div className='popup-assignee field'>
-                    <span className='above'>Filter Assignee</span>
-                    <input required className='below' placeholder='SDE, SDE-INTERN' onChange={(e) => setAssignee(e.target.value)}/>
                 </div>
                 <div className='popup-task field'>
                     <span className='above'>Task</span>

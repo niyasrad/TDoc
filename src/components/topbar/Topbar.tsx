@@ -51,6 +51,7 @@ export default function Topbar({ setOpen }: any) {
                 </svg>
             </div>
             <div className='topbar-search-filter'>
+                <div className='topbar-first'>
                 <input className='topbar-search' placeholder='Search Task' onChange={(e) => {
                     setQuery({ ...query, task: e.target.value })
                 }} />
@@ -60,6 +61,8 @@ export default function Topbar({ setOpen }: any) {
                     </svg>
                     <p>Filter Tasks</p>
                 </div>
+                </div>
+                <div className='topbar-create-category'>Create Category</div>
             </div>
             <AnimatePresence>
                 <motion.div
@@ -68,7 +71,7 @@ export default function Topbar({ setOpen }: any) {
                     initial="closed"
                     animate={topBarOpen ? "open" : "closed"}
                 >
-
+                    
                 </motion.div>
             </AnimatePresence>
 
