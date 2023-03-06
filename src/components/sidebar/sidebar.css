@@ -9,6 +9,7 @@
     gap: 50px;
     align-items: center;
     background-color: #FBBFEE;
+    z-index: 997;
 }
 .sidebar-mobile{
     display: none;

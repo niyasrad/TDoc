@@ -8,6 +8,7 @@
     flex-direction: column;
     min-height: 100px;
     background-color: white;
+    z-index: 996;
 }
 .topbar-search{
     background: #FFFFFF;
