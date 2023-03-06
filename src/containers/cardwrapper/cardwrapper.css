@@ -14,7 +14,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
-    align-items: flex-start;
+    align-items: center;
     gap: 50px;
 }
 .card-wrapper-add{
@@ -79,7 +79,7 @@
     padding: 30px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 30px;
     background-color: white;
     border-radius: 20px;
 }
@@ -92,9 +92,18 @@
     gap: 10px;
 }
 .wrappercategory-svgs svg{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
+}
+.add-new-task-img{
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+.add-new-task-img:hover{
+    transform: rotate(30deg);
 }
 
 @media only screen and (max-width: 990px) {

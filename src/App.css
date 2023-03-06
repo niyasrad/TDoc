@@ -2,6 +2,9 @@
   font-family: 'Comfortaa', cursive;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; 
+  -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; 
+  outline: none !important;
 }
 html{
   scroll-behavior: smooth;
@@ -15,7 +18,7 @@ html{
   z-index: 3;
   background-image: linear-gradient(-45deg,  #46C2CB, #F6E6C2, #EA8FEA);
   background-size: 400% 400%;
-  animation: gradient 5s ease infinite;
+  animation: gradient 35s ease infinite;
 }
 @keyframes gradient {
   0%{

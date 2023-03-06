@@ -7,6 +7,7 @@ import { myData } from "./data";
 import "react-datepicker/dist/react-datepicker.css";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
+import add from '../../assets/add.png';
 
 export interface CardItems {
     _id: string
@@ -77,6 +78,10 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
             .then((res) => res.data)
             .then((data) => {
                 setItems(data.tasks)
+                if (data.tasks && data.tasks.length > 0) {
+                    setOpenCategories({ [data.tasks[0].category] : true })
+                }
+                
             })
             .catch((err) => {
                 console.log(err);
@@ -106,6 +111,12 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                                 <div className="card-wrappercategory">
                                     <p>{category.category}</p>
                                     <div className="wrappercategory-svgs">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none">
+                                            <path d="M13 21H21" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M20.0651 7.39423L7.09967 20.4114C6.72438 20.7882 6.21446 21 5.68265 21H4.00383C3.44943 21 3 20.5466 3 19.9922V18.2987C3 17.7696 3.20962 17.2621 3.58297 16.8873L16.5517 3.86681C19.5632 1.34721 22.5747 4.87462 20.0651 7.39423Z" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M15.3096 5.30981L18.7273 8.72755" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path opacity="0.1" d="M18.556 8.90942L7.09967 20.4114C6.72438 20.7882 6.21446 21 5.68265 21H4.00383C3.44943 21 3 20.5466 3 19.9922V18.2987C3 17.7696 3.20962 17.2621 3.58297 16.8873L15.0647 5.35974C15.0742 5.4062 15.0969 5.45049 15.1329 5.48653L18.5506 8.90426C18.5524 8.90601 18.5542 8.90773 18.556 8.90942Z" fill="#323232" />
+                                        </svg>
                                         <motion.svg xmlns="http://www.w3.org/2000/svg" 
                                             onClick={() => {
                                                 toggleCategory(category.category)
@@ -120,12 +131,6 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                                             <path d="M8 10H40" stroke="#000000" stroke-width="4" stroke-linecap="round" />
                                             <path d="M8 18H40" stroke="#000000" stroke-width="4" stroke-linecap="round" />
                                         </motion.svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none">
-                                            <path d="M13 21H21" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M20.0651 7.39423L7.09967 20.4114C6.72438 20.7882 6.21446 21 5.68265 21H4.00383C3.44943 21 3 20.5466 3 19.9922V18.2987C3 17.7696 3.20962 17.2621 3.58297 16.8873L16.5517 3.86681C19.5632 1.34721 22.5747 4.87462 20.0651 7.39423Z" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M15.3096 5.30981L18.7273 8.72755" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path opacity="0.1" d="M18.556 8.90942L7.09967 20.4114C6.72438 20.7882 6.21446 21 5.68265 21H4.00383C3.44943 21 3 20.5466 3 19.9922V18.2987C3 17.7696 3.20962 17.2621 3.58297 16.8873L15.0647 5.35974C15.0742 5.4062 15.0969 5.45049 15.1329 5.48653L18.5506 8.90426C18.5524 8.90601 18.5542 8.90773 18.556 8.90942Z" fill="#323232" />
-                                        </svg>
                                     </div>
                                 </div>
 
@@ -140,7 +145,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                                         animate={openCategories[category.category] ? "open" : "closed"}
                                         exit="closed"
                                     >
-                                        {category.tasks &&
+                                        {category.tasks ?
                                             category.tasks.map((card: CardItems) => (
                                                 <Card
                                                     _id={card._id}
@@ -152,7 +157,11 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                                                     handleDel={handleDel}
                                                     token={token}
                                                 />
-                                            ))}
+                                            ))
+                                            : 
+                                            <p>No Tasks Added!</p>  
+                                        }
+                                        <img src={add} alt="add-new-task" onClick={() => setOpen(true)} className="add-new-task-img"/>
                                     </motion.div>
                                 }
                             </AnimatePresence>

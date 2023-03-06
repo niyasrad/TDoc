@@ -8,9 +8,23 @@
     flex-direction: column;
     gap: 50px;
     align-items: center;
-    background-color: #FBBFEE;
+    background-image: linear-gradient(-10deg,  #46C2CB, #F6E6C2, #EA8FEA);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
     z-index: 997;
 }
+@keyframes gradient {
+    0%{
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
 .sidebar-mobile{
     display: none;
 }
@@ -114,7 +128,9 @@
         flex-direction: column;
         gap: 50px;
         align-items: center;
-        background-color: #FBBFEE;
+        background-image: linear-gradient(-10deg,  #46C2CB, #F6E6C2, #EA8FEA);
+        background-size: 400% 400%;
+        animation: gradient 10s ease infinite;
     }
     .sidebar-bg.active{
         display: block;
