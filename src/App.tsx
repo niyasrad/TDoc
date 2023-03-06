@@ -32,6 +32,9 @@ function App() {
     setToken('')
     Cookies.remove('token');
   }
+  function sleep (time: number) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
   useEffect(() => {
     try {
       const token = Cookies.get('token');;
@@ -39,7 +42,8 @@ function App() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }
       axios.get('https://tdoc.onrender.com/')
-        .then(() => {
+        .then(async () => {
+          await sleep(2000)
           setLoaded(true)
           if (token) setToken(token)
           setAuth(true)
