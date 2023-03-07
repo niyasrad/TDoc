@@ -1,5 +1,5 @@
 import axios from "axios";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import './card.css';
 
@@ -43,14 +43,20 @@ export default function Card( { _id, title, description, task, due, priority, ha
                 <div className='card-desc-box'>
                     <span className='desc-box-desc'>{description}</span>
                 </div>
-                <motion.div
-                    className='card-task-holder'
-                    variants={variants}
-                    initial="closed"
-                    animate={expandTask ? "open" : "closed"}
-                >
-                    <div className='card-task'>{task}</div>
-                </motion.div>
+                <AnimatePresence>
+                {
+                    expandTask &&
+                    <motion.div
+                        className='card-task-holder'
+                        variants={variants}
+                        initial="closed"
+                        animate={expandTask ? "open" : "closed"}
+                        exit="closed"
+                    >
+                        <div className='card-task'>{task}</div>
+                    </motion.div>
+                }
+                </AnimatePresence>
                 
             </div>
             <div className='card-footer'>

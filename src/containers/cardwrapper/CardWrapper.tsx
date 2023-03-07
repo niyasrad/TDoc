@@ -169,7 +169,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                         </div>
                     ))
                 }
-                <div onClick={handleClick} className='card-wrapper-add'>Add Task</div>
+                {/* <div onClick={handleClick} className='card-wrapper-add'>Add Task</div> */}
                 {open && <Popup handleClick={handleClick} addTask={handleAdd} token={token} />}
             </div>
         </>

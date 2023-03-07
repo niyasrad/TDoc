@@ -80,7 +80,6 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    background-color: white;
     border-radius: 20px;
 }
 .card-wrappercategory p{
@@ -123,6 +122,8 @@
     .card-wrapperitems{
         justify-content: center;
         align-items: center;
+        gap: 30px;
+        padding: 10px;
     }
     .wrappercategory-svgs svg{
         padding-right: 10px;
@@ -131,7 +132,11 @@
         width: calc(100vw - 60px);
     }
     .card-wrappercategory p{
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 800;
+    }
+    .add-new-task-img{
+        width:60px;
+        height: 60px;
     }
 }

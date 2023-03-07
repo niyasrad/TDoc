@@ -34,13 +34,13 @@
     font-size: 16px;
     padding-top: 5px;
     word-spacing: 2px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .card-task{
     font-size: 16px;
     padding-top: 5px;
     word-spacing: 2px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .card-due{
     font-weight: 400;
@@ -59,6 +59,8 @@
 }
 .footer-mark-done{
     border-radius: 12px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     height: 52px;
     font-size: 18px;
     display: flex;
@@ -86,5 +88,32 @@
     .card-surface{
         width: 300px;
         height: auto;
+    }
+    .card-main{
+        padding: 10px;
+    }   
+    .card-desc-box{
+        margin: -10px;
+        padding: 10px;
+    }
+    .card-title{
+        padding-top: 10px;
+        font-size: 20px;
+    }
+    .desc-box-desc{
+        font-size: 14px;
+    }
+    .card-task{
+        font-size: 14px;
+    }
+    .card-due{
+        font-size: 14px;   
+    }
+    .footer-mark-done{
+        height: 42px;
+        font-size: 16px;
+    }
+    .due-bold{
+        font-size: 14px;
     }
 }
