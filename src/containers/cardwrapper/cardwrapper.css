@@ -1,8 +1,12 @@
 .card-wrapper{
-    margin-left: 320px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    position: fixed;
+    left: 320px;
+    top: 150px;
+    height: calc(100vh - 150px);
+    overflow-y: scroll;
 }
 .card-wrapper-div{
     flex-wrap: wrap;
@@ -127,9 +131,8 @@
         margin-left: 0px;
     }
     .card-wrapper{
-        margin-left: 0px;
+        left: 0px;
         gap: unset;
-        justify-content: center;
         align-items: center;
         padding-top: 10px;
     }

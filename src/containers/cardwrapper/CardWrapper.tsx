@@ -36,7 +36,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
 
     const dropDownVariant = {
         open: {
-            rotateX: 0,
+            rotateX: 180,
             transition: { duration: 0.5 },
         },
         closed: {
