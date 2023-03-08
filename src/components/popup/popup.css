@@ -1,51 +1,36 @@
-.popup-layer{
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    opacity: 0.7;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
 .popup{
     z-index: 999;
-    background: #F2F2F2;
-    border-radius: 20px;
-    width: 90%;
+    border-radius: 14px;
+    width: 400px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
-    padding: 15px;
-    padding-top: 15px;
+    gap: 10px;
+    padding: 35px;
+    box-sizing: border-box;
+    padding-top: 25px;
     padding-bottom: 50px;
-    position: absolute;
+    position: fixed;
+    max-height: 80%;
+    top: 20%;
     left: 0;
     right: 0;
-    top: 100px;
     margin: 0 auto;
-    animation-name: grow;
-    animation-duration: 0.2s;
-    animation-timing-function: ease-out;
+    background-color: white;
+    box-shadow: 0px 4px 46px rgba(255, 255, 255, 0.25);
+    overflow-y: scroll;
 }
-@keyframes grow {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
 .popup-text{
-    font-size: 24px;
+    font-weight: 700;
+    font-size: 20px;
 }
 .popup-wrapper{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 700px;
-    gap: 50px;
+    gap: 30px;
 }
 .field{
     display: flex;
@@ -55,31 +40,33 @@
 }
 .field input{
     background: #FFFFFF;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+    border-color: transparent;
+    box-shadow: 0px 4px 12px rgba(23, 20, 199, 0.25);
     border-radius: 5px;
-    width: 250px;
+    width: 300px;
     border-color: transparent;
     font-size: 16px;
     height: 40px;
     padding-left: 15px;
 }
-.CANCEL{
-    width: 150px;
-    height: 42px;
-    line-height: 42px;
-    background: #C5F4FF;
-    border-radius: 34px;
+.popup-button{
+    width: 120px;
+    height: 40px;
     text-align: center;
-    cursor:pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 9px;
+    cursor: pointer;
+}
+.CANCEL{
+    background: #FBBFEE;
+    box-shadow: 0px 4px 15px rgba(189, 0, 255, 0.25);
 }
 .ADD{
-    width: 150px;
-    height: 42px;
-    line-height: 42px;
-    background: #FBBFEE;
-    border-radius: 34px;
-    text-align: center;
-    cursor:pointer;
+    background: #670557;
+    box-shadow: 0px 4px 19px rgba(51, 0, 253, 0.25);
 }
 .popup-select{
     display: flex;
@@ -94,4 +81,30 @@
 .popup-severity input{
     width: 20px;
     height: 20px;
+}
+@media only screen and (max-width: 990px) {
+    .popup{
+        top: 10%;
+        width: 310px;
+        padding: 15px;
+        padding-top: 15px;
+        padding-bottom: 20px;
+    }
+    .popup-text{
+        font-size: 18px;
+    }
+    .field{
+        font-size: 14px;
+    }
+    .field input{
+        font-size: 14px;
+        width: 250px;
+    }
+    .popup-severity{
+        font-size: 14px;
+    }
+    .popover-button{
+        width: 100px;
+        height: 40px;
+    }
 }

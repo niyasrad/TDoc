@@ -1,6 +1,5 @@
 .card-wrapper{
     margin-left: 320px;
-    margin-top: 130px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -96,15 +95,33 @@
     cursor: pointer;
 }
 .add-new-task-img{
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
+    color: #555;
 }
 .add-new-task-img:hover{
     transform: rotate(30deg);
+    color: black;
 }
-
+.card-absolute{
+    position: fixed;
+}
+.card-add-task-bg{
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 997;
+    cursor: default;
+    background: rgba(0, 0, 0, 0.6);
+}
 @media only screen and (max-width: 990px) {
     .card-wrapper-filter{
         margin-left: 0px;
@@ -136,7 +153,7 @@
         font-weight: 800;
     }
     .add-new-task-img{
-        width:60px;
-        height: 60px;
+        width:30px;
+        height: 30px;
     }
 }

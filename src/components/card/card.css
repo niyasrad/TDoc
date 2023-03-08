@@ -22,7 +22,7 @@
 .card-title{
     padding-top: 20px;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 22px;
 }
 .card-desc-box{
     background-color: #F1F1F1;
@@ -31,20 +31,20 @@
     padding: 15px;
 }
 .desc-box-desc{
-    font-size: 16px;
+    font-size: 14px;
     padding-top: 5px;
     word-spacing: 2px;
     word-break: break-word;
 }
 .card-task{
-    font-size: 16px;
+    font-size: 14px;
     padding-top: 5px;
     word-spacing: 2px;
     word-break: break-word;
 }
 .card-due{
     font-weight: 400;
-    font-size: 16px;   
+    font-size: 14px;   
 }
 .card-footer{
     background: #515151;
@@ -62,7 +62,7 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     height: 52px;
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,7 +82,7 @@
 }
 .due-bold{
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
 }
 @media only screen and (max-width: 990px) {
     .card-surface{

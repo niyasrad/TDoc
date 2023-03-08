@@ -3,17 +3,26 @@ import DatePicker from "react-datepicker";
 import './popup.css';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { motion } from "framer-motion";
 
-export default function Popup({ addTask, handleClick, token }: any) {
+export default function Popup({ addTask, handleClick, token, category }: any) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
     const [task, setTask] = useState('');
     const [dueDate, setDueDate] = useState<Date>(new Date());
     const [severity, setSeverity] = useState('LOW');
     const [checked, setChecked] = useState(false)
 
-
+    const itemVariants = {
+        open: {
+            opacity: 1,
+            y: 0,
+            height: "auto",
+            transition: { type: "spring", stiffness: 300, damping: 24 }
+        },
+        closed: { opacity: 0, y: 20, transition: { duration: 0.2 } }
+    };
+    
     const handleCheck = () => {
         setChecked(!checked)
         setSeverity(severity === 'LOW' ? 'HIGH' : 'LOW')
@@ -37,7 +46,6 @@ export default function Popup({ addTask, handleClick, token }: any) {
         .then(response => {
             setTitle('');
             setDescription('');
-            setCategory('');
             setTask('');
             setDueDate(new Date());
             setSeverity('');
@@ -52,18 +60,12 @@ export default function Popup({ addTask, handleClick, token }: any) {
     const [startDate, setStartDate] = useState(new Date());
     
     return (
-        <>
-        <div className='popup-layer'></div>
-        <div className='popup'>
+        <motion.div className="popup" variants={itemVariants} initial="open" exit="closed">
             <div className='popup-text'>Add Task</div>
             <div className='popup-wrapper'>
                 <div className='popup-title field'>
                     <span className='above'>Title</span>
                     <input required className='below' placeholder='Investigate response' onChange={(e) => setTitle(e.target.value)}/>
-                </div>
-                <div className='popup-tags field'>
-                    <span className='above'>Filter Tags</span>
-                    <input required className='below' placeholder='Personal' onChange={(e) => setCategory(e.target.value)} />
                 </div>
                 <div className='popup-desc field'>
                     <span className='above'>Task Description</span>
@@ -86,11 +88,9 @@ export default function Popup({ addTask, handleClick, token }: any) {
                 </div>
             </div>
             <div className='popup-select'>
-                <div className='CANCEL' onClick={handleClick}>Cancel</div>
-                <div className='ADD' onClick={handleSubmit}>Add Task</div>
+                <div className='CANCEL popup-button' onClick={handleClick}>Cancel</div>
+                <div className='ADD popup-button' onClick={handleSubmit}>Add</div>
             </div>
-            
-        </div>
-        </>
+        </motion.div>
     )
 }

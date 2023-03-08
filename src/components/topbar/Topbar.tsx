@@ -76,7 +76,7 @@ export default function Topbar({ setOpen }: any) {
                             exit="closed"
                         >  
                         <div className='topbar-overlay-category' onClick={() => setCreateCategory(false)}></div>
-                        <Popover />
+                        <Popover handleClose={() => setCreateCategory(false)}/>
                     </motion.div>   
                 }
                 </AnimatePresence>
