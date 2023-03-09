@@ -116,7 +116,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                 {
                     items &&
                     items.map((category: any) => (
-                        <div className="card-wrapper-div">
+                        <>
                             {category.category &&
                                 <div className="card-wrappercategory">
                                     <p>{category.category}</p>
@@ -192,8 +192,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                                     </motion.div>
                                 }
                             </AnimatePresence>
-
-                        </div>
+                        </>
                     ))
                 }
                 {/* <div onClick={handleClick} className='card-wrapper-add'>Add Task</div> */}

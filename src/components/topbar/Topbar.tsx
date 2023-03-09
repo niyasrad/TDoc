@@ -41,6 +41,7 @@ export default function Topbar({ setOpen }: any) {
     };
 
     return (
+        <>
         <div className='topbar'>
             <div className="topbar-mobile-top">
                 <svg xmlns="http://www.w3.org/2000/svg" onClick={setOpen} width="800px" height="800px" viewBox="0 0 24 24" fill="none">
@@ -63,9 +64,10 @@ export default function Topbar({ setOpen }: any) {
                     <p>Filter</p>
                 </div>
                 </div>
-                <div className='topbar-create-category' onClick={() => setCreateCategory(true)}>Create Category</div>
-                
-                <AnimatePresence>  
+                <div className='topbar-create-category' onClick={() => setCreateCategory(true)}>Create Category</div>  
+            </div>
+        </div>
+        <AnimatePresence>  
                 {
                     createCategory && 
                     <motion.div
@@ -79,11 +81,7 @@ export default function Topbar({ setOpen }: any) {
                         <Popover handleClose={() => setCreateCategory(false)}/>
                     </motion.div>   
                 }
-                </AnimatePresence>
-
-               
-                
-            </div>
+            </AnimatePresence>
             <AnimatePresence>
                 <motion.div
                     className='topbar-search-query'
@@ -94,7 +92,6 @@ export default function Topbar({ setOpen }: any) {
                     
                 </motion.div>
             </AnimatePresence>
-
-        </div>
+        </>
     )
 }
