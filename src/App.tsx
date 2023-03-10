@@ -16,6 +16,7 @@ function App() {
   const [authenticated, setAuth] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
   const [sideBarOpen, setSideBarOpen] = useState(false);
+  const [change, setChange] = useState(false);
 
   const tips = [
     "Use the Categories to keep your tasks aligned and organized.",
@@ -79,8 +80,8 @@ function App() {
           authenticated ?
             <>
               <Sidebar open={sideBarOpen} setOpen={() => { setSideBarOpen(!sideBarOpen) }} handleSignOut={handleSignOut} />
-              <Topbar setOpen={() => { setSideBarOpen(!sideBarOpen) }} />
-              <CardWrapper token={token} handleSignOut={handleSignOut} />
+              <Topbar handleAdd={() => setChange(!change)}setOpen={() => { setSideBarOpen(!sideBarOpen) }} />
+              <CardWrapper change={change} token={token} handleSignOut={handleSignOut} />
             </>
             :
             <div className='app-real'>

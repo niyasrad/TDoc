@@ -24,10 +24,11 @@ export interface CardItems {
 
 interface Props {
     token: string,
-    handleSignOut: any
+    handleSignOut: any;
+    change: boolean;
 }
 
-export default function CardWrapper({ token, handleSignOut }: Props) {
+export default function CardWrapper({ token, handleSignOut, change }: Props) {
 
     const [open, setOpen] = useState<boolean>(false);
     const [items, setItems] = useState([])
@@ -104,7 +105,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
             .catch((err) => {
                 console.log(err);
             })
-    }, [query, forcedUpdate])
+    }, [query, forcedUpdate, change])
     return (
         <>
             {/* <div onClick={handleSignOut} className='card-wrapper-signout'>Sign Out</div> */}
@@ -127,34 +128,30 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                         <>
                             {category.category &&
                                 <div className="card-wrappercategory">
+                                    <div className="wrappercategory-svgs">
+                                    <motion.svg 
+                                        onClick={() => {
+                                            toggleCategory(category.category)
+                                            console.log("clicked")
+                                        }}
+                                        variants={dropDownVariant}
+                                        initial="closed"
+                                        animate={openCategories[category.category] ? "open" : "closed"}
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                        <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clipRule="evenodd" />
+                                    </motion.svg>
+                                    </div>
                                     <p>{category.category}</p>
                                     <div className="wrappercategory-svgs">
-                                        <svg 
+                                        <svg
                                             onClick={() => {
                                                 toggleEditCategory(category.category)
                                                 console.log("clicked")
                                             }}
-                                            
-                                            xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none">
-                                            <path d="M13 21H21" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M20.0651 7.39423L7.09967 20.4114C6.72438 20.7882 6.21446 21 5.68265 21H4.00383C3.44943 21 3 20.5466 3 19.9922V18.2987C3 17.7696 3.20962 17.2621 3.58297 16.8873L16.5517 3.86681C19.5632 1.34721 22.5747 4.87462 20.0651 7.39423Z" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M15.3096 5.30981L18.7273 8.72755" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path opacity="0.1" d="M18.556 8.90942L7.09967 20.4114C6.72438 20.7882 6.21446 21 5.68265 21H4.00383C3.44943 21 3 20.5466 3 19.9922V18.2987C3 17.7696 3.20962 17.2621 3.58297 16.8873L15.0647 5.35974C15.0742 5.4062 15.0969 5.45049 15.1329 5.48653L18.5506 8.90426C18.5524 8.90601 18.5542 8.90773 18.556 8.90942Z" fill="#323232" />
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                            <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
+                                            <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
                                         </svg>
-                                        <motion.svg xmlns="http://www.w3.org/2000/svg"
-                                            onClick={() => {
-                                                toggleCategory(category.category)
-                                                console.log("clicked")
-                                            }}
-                                            variants={dropDownVariant}
-                                            initial="closed"
-                                            animate={openCategories[category.category] ? "open" : "closed"}
-                                            width="800px" height="800px" viewBox="0 0 48 48" fill="none">
-                                            <rect width="48" height="48" fill="white" fill-opacity="0.01" />
-                                            <path d="M40 28L24 40L8 28" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M8 10H40" stroke="#000000" stroke-width="4" stroke-linecap="round" />
-                                            <path d="M8 18H40" stroke="#000000" stroke-width="4" stroke-linecap="round" />
-                                        </motion.svg>
                                     </div>
                                 </div>
 
@@ -198,7 +195,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                                                     className="card-absolute"
                                                 >
                                                     <div className='card-add-task-bg' onClick={() => setOpenAddTask({[category.category] : false})}></div>      
-                                                    <Popup handleClick={() => setOpenAddTask({[category.category] : false})} addTask={handleAdd} token={token} prevName={category.category} />
+                                                    <Popup handleClick={() => setOpenAddTask({[category.category] : false})} addTask={handleAdd} token={token} category={category.category} />
                                                 </motion.div>
                                             }
                                         </AnimatePresence>

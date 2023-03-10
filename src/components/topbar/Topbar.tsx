@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Popover from "../popover/Popover";
 
 
-export default function Topbar({ setOpen }: any) {
+export default function Topbar({ setOpen, handleAdd }: any) {
 
     const [query, setQuery] = useState<any>({});
     const [topBarOpen, setTopBarOpen] = useState(false);
@@ -78,7 +78,7 @@ export default function Topbar({ setOpen }: any) {
                             exit="closed"
                         >  
                         <div className='topbar-overlay-category' onClick={() => setCreateCategory(false)}></div>
-                        <Popover handleClose={() => setCreateCategory(false)}/>
+                        <Popover handleAdd={handleAdd} handleClose={() => setCreateCategory(false)}/>
                     </motion.div>   
                 }
             </AnimatePresence>

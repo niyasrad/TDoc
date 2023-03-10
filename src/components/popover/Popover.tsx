@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import './popover.css';
 
 
-export default function Popover({ handleClose }: any) {
+export default function Popover({ handleClose, handleAdd }: any) {
 
     const [name, setName] = useState<string>('');
     const itemVariants = {
@@ -23,6 +23,7 @@ export default function Popover({ handleClose }: any) {
             try {
                 await axios.post('https://tdoc.onrender.com/tasks/category', { category: name })
                 .finally(() => {
+                    handleAdd();
                     handleClose()
                 })
             } catch (error) {
