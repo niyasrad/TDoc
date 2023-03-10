@@ -16,6 +16,18 @@
     z-index: 999;
     cursor:default;
 }
+.close-svg{
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    color: #670557;
+}
+.popover-top{
+    display: flex;
+    justify-content: space-between;
+}
 .popover-heading {
     font-weight: 700;
     font-size: 20px;
@@ -39,10 +51,14 @@
     box-shadow: 0px 4px 12px rgba(23, 20, 199, 0.25);
     border-radius: 6px;
 }
+.popover-options-delete{
+    width: 25px;
+    height: 25px;
+}
 .popover-options{
     display: flex;
     gap: 20px;
-    justify-content: flex-end;
+    justify-content: center;
 }
 .popover-button{
     width: 120px;
@@ -61,6 +77,10 @@
 }
 .options-create{
     background: #670557;
+    box-shadow: 0px 4px 19px rgba(51, 0, 253, 0.25);
+}
+.options-delete{
+    background: red;
     box-shadow: 0px 4px 19px rgba(51, 0, 253, 0.25);
 }
 @media only screen and (max-width: 990px) {

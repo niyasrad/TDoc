@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import add from '../../assets/add.png';
+import CategoryPopover from "../../components/category-popover/CategoryPopover";
 
 export interface CardItems {
     _id: string
@@ -70,7 +71,7 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
     const handleDel = () => {
         setForced(!forcedUpdate)
     }
-
+    const [openEditCategories, setOpenEditCategories] = useState<any>({});
     const [openCategories, setOpenCategories] = useState<any>({});
     const [openAddTask, setOpenAddTask] = useState<any>({});
 
@@ -80,6 +81,13 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
             [category]: !openCategories[category],
         });
         console.log(openCategories)
+    };
+
+    const toggleEditCategory = (category: string) => {
+        setOpenEditCategories({
+            ...openEditCategories,
+            [category]: !openEditCategories[category],
+        });
     };
 
     useEffect(() => {
@@ -121,7 +129,13 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                                 <div className="card-wrappercategory">
                                     <p>{category.category}</p>
                                     <div className="wrappercategory-svgs">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none">
+                                        <svg 
+                                            onClick={() => {
+                                                toggleEditCategory(category.category)
+                                                console.log("clicked")
+                                            }}
+                                            
+                                            xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none">
                                             <path d="M13 21H21" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             <path d="M20.0651 7.39423L7.09967 20.4114C6.72438 20.7882 6.21446 21 5.68265 21H4.00383C3.44943 21 3 20.5466 3 19.9922V18.2987C3 17.7696 3.20962 17.2621 3.58297 16.8873L16.5517 3.86681C19.5632 1.34721 22.5747 4.87462 20.0651 7.39423Z" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             <path d="M15.3096 5.30981L18.7273 8.72755" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -147,7 +161,6 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                             }
                             <AnimatePresence>
                                 {openCategories[category.category] &&
-
                                     <motion.div
                                         className="card-wrapperitems"
                                         variants={itemVariants}
@@ -185,17 +198,31 @@ export default function CardWrapper({ token, handleSignOut }: Props) {
                                                     className="card-absolute"
                                                 >
                                                     <div className='card-add-task-bg' onClick={() => setOpenAddTask({[category.category] : false})}></div>      
-                                                    <Popup handleClick={() => setOpenAddTask({[category.category] : false})} addTask={handleAdd} token={token} category={category.category} />
+                                                    <Popup handleClick={() => setOpenAddTask({[category.category] : false})} addTask={handleAdd} token={token} prevName={category.category} />
                                                 </motion.div>
                                             }
                                         </AnimatePresence>
                                     </motion.div>
                                 }
                             </AnimatePresence>
+                            <AnimatePresence>
+                                {
+                                    openEditCategories[category.category]  &&
+                                    <motion.div
+                                        variants={bgVariant}
+                                        initial="closed"
+                                        animate={openEditCategories[category.category] ? "open" : "closed"}
+                                        exit="closed"
+                                        className="card-absolute"
+                                    >
+                                        <div className='card-add-task-bg' onClick={() => setOpenEditCategories({[category.category] : false})}></div>      
+                                        <CategoryPopover handleClose={() => setOpenEditCategories({[category.category] : false})} addTask={handleAdd} token={token} prevName={category.category} />
+                                    </motion.div>
+                                }
+                            </AnimatePresence>
                         </>
                     ))
                 }
-                {/* <div onClick={handleClick} className='card-wrapper-add'>Add Task</div> */}
 
             </div>
         </>
