@@ -7,10 +7,11 @@ interface Props {
     open: boolean,
     setOpen: any,
     handleSignOut: any,
-    username: string
+    username: string,
+    change: any
 }
 
-export default function Sidebar({ username, open, setOpen, handleSignOut }: Props) {
+export default function Sidebar({ username, open, setOpen, handleSignOut, change }: Props) {
 
     const [tasks, setTasks] = useState(true);
     const [about, setAbout] = useState(false);
@@ -54,10 +55,11 @@ export default function Sidebar({ username, open, setOpen, handleSignOut }: Prop
                     <div className="sidebar-selector" onClick={() => {
                         setTasks(true);
                         setAbout(false);
+                        change("TASKS");
                     }
 
                     }>
-                        <div className={tasks ? "selector-option active" : "selector-option"}>
+                        <div className={tasks ? "selector-option active" : "selector-option"} >
                             Tasks
                         </div>
                         <div className="selector-bg"></div>
@@ -67,6 +69,7 @@ export default function Sidebar({ username, open, setOpen, handleSignOut }: Prop
                         () => {
                             setTasks(false);
                             setAbout(true);
+                            change("ABOUT");
                         }
                     }>
                         <div className={about ? "selector-option active" : "selector-option"}>
@@ -97,10 +100,11 @@ export default function Sidebar({ username, open, setOpen, handleSignOut }: Prop
                     <div className="sidebar-selector" onClick={() => {
                         setTasks(true);
                         setAbout(false);
+                        change("TASKS");
                     }
 
                     }>
-                        <div className={tasks ? "selector-option active" : "selector-option"}>
+                        <div className={tasks ? "selector-option active" : "selector-option"} >
                             Tasks
                         </div>
                         <div className="selector-bg"></div>
@@ -110,9 +114,10 @@ export default function Sidebar({ username, open, setOpen, handleSignOut }: Prop
                         () => {
                             setTasks(false);
                             setAbout(true);
+                            change("ABOUT");
                         }
                     }>
-                        <div className={about ? "selector-option active" : "selector-option"}>
+                        <div className={about ? "selector-option active" : "selector-option"} >
                             About
 
                         </div>

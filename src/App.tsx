@@ -8,6 +8,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import { setTokenSourceMapRange } from 'typescript';
 import Cookies from 'js-cookie';
 import Topbar from './components/topbar/Topbar';
+import About from './containers/about/About';
 
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [username, setUsername] = useState('User');
   const [change, setChange] = useState(false);
+  const [wrapper, setWrapper] = useState(true);
   const [query, setQuery] = useState<any>({});
-
+  console.log(wrapper)
   const tips = [
     "Use the Categories to keep your tasks aligned and organized.",
     "If you do not clear the tasks before the due, you'll be given alerts.",
@@ -83,9 +85,16 @@ function App() {
         {loaded ?
           authenticated ?
             <>
-              <Sidebar username={username} open={sideBarOpen} setOpen={() => { setSideBarOpen(!sideBarOpen) }} handleSignOut={handleSignOut} />
-              <Topbar handleAdd={() => setChange(!change)}setOpen={() => { setSideBarOpen(!sideBarOpen) }} query={query} setQuery={setQuery}/>
-              <CardWrapper change={change} token={token} handleSignOut={handleSignOut} query={query} />
+              <Sidebar change={(selected: string) => setWrapper(selected === "ABOUT" ? false : true)} username={username} open={sideBarOpen} setOpen={() => { setSideBarOpen(!sideBarOpen) }} handleSignOut={handleSignOut} />
+              
+              { wrapper ? 
+                <>
+                  <Topbar handleAdd={() => setChange(!change)} setOpen={() => { setSideBarOpen(!sideBarOpen) }} query={query} setQuery={setQuery}/>
+                  <CardWrapper change={change} token={token} handleSignOut={handleSignOut} query={query} /> 
+                </> 
+                :
+                  <About setOpen={() => { setSideBarOpen(!sideBarOpen) }}/>
+              }
             </>
             :
             <div className='app-real'>
