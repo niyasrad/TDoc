@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import React, { useState } from "react";
 import './authentication.css';
 interface Props{
-    onauth: (token : string) => void
+    onauth: (token : string, username: string) => void
 }
 
 export default function Authentication({ onauth } : Props) {
@@ -41,7 +41,7 @@ export default function Authentication({ onauth } : Props) {
         })
         .then(
             response => {
-                onauth(response.data.token)
+                onauth(response.data.token, response.data.username)
             }
         ).catch( 
             err => setErrorMessage(err.response.data.message)
@@ -65,7 +65,7 @@ export default function Authentication({ onauth } : Props) {
         })
         .then(
             response => {
-                onauth(response.data.token)
+                onauth(response.data.token, response.data.username)
             }
         ).catch( 
             err => setErrorMessage(err.response.data.message)

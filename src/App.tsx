@@ -16,6 +16,7 @@ function App() {
   const [authenticated, setAuth] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
   const [sideBarOpen, setSideBarOpen] = useState(false);
+  const [username, setUsername] = useState('User');
   const [change, setChange] = useState(false);
   const [query, setQuery] = useState<any>({});
 
@@ -44,8 +45,9 @@ function App() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }
       axios.get('https://tdoc.onrender.com/')
-        .then(async () => {
+        .then(async (res) => {
           await sleep(2000)
+          setUsername(res.data.username);
           setLoaded(true)
           if (token) setToken(token)
           setAuth(true)
@@ -69,8 +71,9 @@ function App() {
     }
   }, [])
 
-  const onAuth = async (token: string) => {
+  const onAuth = async (token: string, username: string) => {
     await setToken(token);
+    await setUsername(username);
     Cookies.set('token', token);
     setAuth(true);
   }
@@ -80,7 +83,7 @@ function App() {
         {loaded ?
           authenticated ?
             <>
-              <Sidebar open={sideBarOpen} setOpen={() => { setSideBarOpen(!sideBarOpen) }} handleSignOut={handleSignOut} />
+              <Sidebar username={username} open={sideBarOpen} setOpen={() => { setSideBarOpen(!sideBarOpen) }} handleSignOut={handleSignOut} />
               <Topbar handleAdd={() => setChange(!change)}setOpen={() => { setSideBarOpen(!sideBarOpen) }} query={query} setQuery={setQuery}/>
               <CardWrapper change={change} token={token} handleSignOut={handleSignOut} query={query} />
             </>
