@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../components/card/Card";
 import Popup from "../../components/popup/Popup";
-import DatePicker from "react-datepicker";
 import './cardwrapper.css';
-import { myData } from "./data";
-import "react-datepicker/dist/react-datepicker.css";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
-import add from '../../assets/add.png';
 import CategoryPopover from "../../components/category-popover/CategoryPopover";
 
 export interface CardItems {
@@ -19,7 +15,8 @@ export interface CardItems {
     priority: 'LOW' | 'HIGH',
     category: string,
     bogus?: boolean,
-    handleDel: any
+    handleDel: any,
+    done: boolean
 }
 
 interface Props {
@@ -108,19 +105,6 @@ export default function CardWrapper({ token, handleSignOut, change, query }: Pro
     }, [query, forcedUpdate, change])
     return (
         <>
-            {/* <div onClick={handleSignOut} className='card-wrapper-signout'>Sign Out</div> */}
-            {/* <div className='card-wrapper-filter'>
-                <input className='card-wrapper-search' placeholder='Search Task' onChange={(e) => {
-                    setQuery({...query, task: e.target.value})
-                }} />
-                <input className='card-wrapper-search' placeholder='Filter Assignee' onChange={(e) => {
-                    setQuery({...query, assignees: e.target.value.split(',').map((assignee) => assignee.trim())})
-                }}/>
-                <DatePicker className='card-wrapper-search' selected={startDate} onChange={(date: Date) => {
-                    setStartDate(date);
-                    setQuery({...query, due: date})
-                } }/>
-        </div> */}
             <div className='card-wrapper'>
                 {
                     items &&
@@ -176,6 +160,7 @@ export default function CardWrapper({ token, handleSignOut, change, query }: Pro
                                                     priority={card.priority}
                                                     handleDel={handleDel}
                                                     token={token}
+                                                    done={card.done}
                                                 /> : null
                                             ))
                                             :

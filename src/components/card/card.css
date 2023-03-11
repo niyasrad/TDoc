@@ -12,6 +12,9 @@
 .pinkglow{
     box-shadow: 0px 4px 25px #670557;
 }
+.grayglow{
+    box-shadow: 0px 4px 25px #515151;
+}
 .card-main{
     padding: 15px;
     display: flex;
@@ -79,6 +82,13 @@
 }
 .pink{
     background: #FBBFEE;
+}
+.black{
+    background-color: black;
+    color: white;
+}
+.black:hover{
+    background-color: gray;
 }
 .due-bold{
     font-weight: 700;

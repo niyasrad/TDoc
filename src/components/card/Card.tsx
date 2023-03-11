@@ -11,9 +11,10 @@ interface CardProps{
     due: Date,
     priority: "HIGH" | "LOW",
     handleDel: any,
-    token: string
+    token: string,
+    done: boolean
 }
-export default function Card( { _id, title, description, task, due, priority, handleDel, token }: CardProps) {
+export default function Card( { _id, title, description, task, due, priority, handleDel, token, done }: CardProps) {
 
     const variants = {
         open: {
@@ -36,7 +37,7 @@ export default function Card( { _id, title, description, task, due, priority, ha
         handleDel();
     }
     return (
-        <div className={priority === "HIGH" ? "card-surface pinkglow" : "card-surface blueglow"} onClick={() => setExpandTask(!expandTask)} >
+        <div className={done ? "card-surface grayglow" :priority === "HIGH" ? "card-surface pinkglow" : "card-surface blueglow"} onClick={() => setExpandTask(!expandTask)} >
             <div className='card-main'>
                 <div className='card-title'>{title}</div>
                 <div className='card-due'>Due on <span className='due-bold'>{day.split(',')[0]}</span></div>
@@ -60,11 +61,13 @@ export default function Card( { _id, title, description, task, due, priority, ha
                 
             </div>
             <div className='card-footer'>
-                <div className={priority === "LOW" ? "footer-mark-done blue" : "footer-mark-done pink"} 
+                <div className={done ? "footer-mark-done black" : priority === "LOW" ? "footer-mark-done blue" : "footer-mark-done pink"} 
                 onClick={
                     (e) => {
                         e.preventDefault();
-                        handleDelete();
+                        if (!done) {
+                            handleDelete();
+                        }
                     }
                     
                 }

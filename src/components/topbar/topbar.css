@@ -63,9 +63,13 @@
 .topbar-search-query{
     position: fixed;
     top: 100px;
-    height: 150px;
-    width: 100%;
-    background-color: black;
+    left: 400px;
+    min-width: 600px;
+    background-color: white;
+    z-index: 999;
+    box-shadow: 0px 4px 46px rgba(255, 255, 255, 0.25);
+    padding: 30px;
+    box-sizing: border-box;
 }
 .topbar-create-category{
     width: 180px;
@@ -97,6 +101,89 @@
     cursor: default;
     background: rgba(0, 0, 0, 0.6);
     z-index: 998;
+}
+.topbar-divided{
+    display: flex;
+    gap: 50px;
+}
+.topbar-filter-heading{
+    font-size: 18px;
+    font-weight: 800;
+    padding-bottom: 30px;
+}
+.topbar-filter-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+}
+.topbar-switch-panel{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+.inputer{
+    background: #FFFFFF;
+    border-color: transparent;
+    box-shadow: 0px 4px 12px rgba(23, 20, 199, 0.25);
+    border-radius: 5px;
+    width: 100px;
+    border-color: transparent;
+    font-size: 16px;
+    height: 40px;
+    padding-left: 15px;
+}
+.topbar-switch{
+    width: 50px;
+    height: 25px;
+    border-radius: 35px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    padding: 1px;
+    transition: all 0.3s ease-in-out;
+}
+.topbar-switch:hover{
+    background-color: black;
+}
+.topbar-switch.on{
+    background-color: #5C0969;
+}
+.topbar-switch-ball{
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+}
+.topbar-switch-ball.on{
+    transform: translate(25px);
+}
+.topbar-filter-submit{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.topbar-button{
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 9px;
+    cursor: pointer;
+}
+.options-reset{
+    background: #FBBFEE;
+    box-shadow: 0px 4px 15px rgba(189, 0, 255, 0.25);
+}
+.options-save{
+    background: #670557;
+    box-shadow: 0px 4px 19px rgba(51, 0, 253, 0.25);
 }
 @media only screen and (max-width: 990px) {
     .topbar{
@@ -147,6 +234,24 @@
     }
     .topbar-search-query{
         top: 160px;
+        min-width: 90%;
         width: 90%;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+    .topbar-divided{
+        flex-direction: column;
+        gap: 30px;
+    }
+    .topbar-filter-menu{
+        width: 80%;
+    }
+    .topbar-filter-submit{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
     }
 }
