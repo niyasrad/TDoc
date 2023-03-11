@@ -11,13 +11,31 @@
 }
 .topbar-search{
     background: #FFFFFF;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(23, 20, 199, 0.25);
+    border-radius: 10px;
     width: 250px;
     height: 40px;
-    line-height: 50px;
     padding-left: 15px;
+    overflow: hidden;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.topbar-search input {
     border-color: transparent;
+    width: 200px;
+}
+.topbar-svg-last{
+    background-color: #5C0969;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.topbar-search svg{
+    width: 20px;
+    height: 20px;
 }
 .topbar-first{
     display: flex;

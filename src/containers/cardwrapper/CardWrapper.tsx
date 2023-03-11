@@ -26,14 +26,14 @@ interface Props {
     token: string,
     handleSignOut: any;
     change: boolean;
+    query: any;
 }
 
-export default function CardWrapper({ token, handleSignOut, change }: Props) {
+export default function CardWrapper({ token, handleSignOut, change, query }: Props) {
 
     const [open, setOpen] = useState<boolean>(false);
     const [items, setItems] = useState([])
     const [startDate, setStartDate] = useState(new Date());
-    const [query, setQuery] = useState<any>({});
     const [forcedUpdate, setForced] = useState<boolean>(false);
 
     const dropDownVariant = {

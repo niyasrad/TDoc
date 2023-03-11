@@ -34,7 +34,7 @@ export default function CategoryPopover({ handleClose, prevName, addTask }: any)
         }
         else {
             try {
-                await axios.post('https://tdoc.onrender.com/tasks/category/rename', { category: prevName, newCategory: name })
+                await axios.post('https://tdoc.onrender.com/categories/rename', { category: prevName, newCategory: name })
                     .finally(() => {
                         addTask();
                         handleClose();

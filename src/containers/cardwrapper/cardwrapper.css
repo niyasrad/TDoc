@@ -3,7 +3,7 @@
     flex-direction: column;
     position: fixed;
     left: 320px;
-    top: 150px;
+    top: 160px;
     height: calc(100vh - 150px);
     width: calc(100vw - 320px);
     overflow-y: auto;

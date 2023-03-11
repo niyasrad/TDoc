@@ -3,11 +3,12 @@ import './topbar.css';
 import logo from '../../assets/logo.png';
 import { motion, AnimatePresence } from "framer-motion";
 import Popover from "../popover/Popover";
+import { setServers } from "dns";
 
 
-export default function Topbar({ setOpen, handleAdd }: any) {
+export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
 
-    const [query, setQuery] = useState<any>({});
+    const [search, setSearch] = useState('');
     const [topBarOpen, setTopBarOpen] = useState(false);
     const [createCategory, setCreateCategory] = useState(false);
 
@@ -48,15 +49,28 @@ export default function Topbar({ setOpen, handleAdd }: any) {
                     <path d="M4 17H20M4 12H20M4 7H20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <img src={logo} alt="logo" />
-                <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setCreateCategory(true)} width="800px" height="800px" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 12H12M12 12H9M12 12V9M12 12V15M17 21H7C4.79086 21 3 19.2091 3 17V7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V17C21 19.2091 19.2091 21 17 21Z" stroke="#000000" stroke-width="2" stroke-linecap="round" />
+                <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setCreateCategory(true)} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
                 </svg>
+
             </div>
             <div className='topbar-search-filter'>
                 <div className='topbar-first'>
-                <input className='topbar-search' placeholder='Search Task' onChange={(e) => {
-                    setQuery({ ...query, task: e.target.value })
-                }} />
+                <div className='topbar-search'>
+                    <input placeholder='Search' onChange={(e) => {
+                        setSearch(e.target.value)
+                    }} />
+                    <div className="topbar-svg-last"
+                        onClick= { () => {
+                            setQuery({...query, task: search})
+                        }}
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="white">
+                            <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
+                        </svg>
+                    </div>
+                </div>  
+                
                 <div className='topbar-filter' onClick={() => setTopBarOpen(!topBarOpen)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none">
                         <path d="M3 8L15 8M15 8C15 9.65686 16.3431 11 18 11C19.6569 11 21 9.65685 21 8C21 6.34315 19.6569 5 18 5C16.3431 5 15 6.34315 15 8ZM9 16L21 16M9 16C9 17.6569 7.65685 19 6 19C4.34315 19 3 17.6569 3 16C3 14.3431 4.34315 13 6 13C7.65685 13 9 14.3431 9 16Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

@@ -46,17 +46,8 @@ export default function Sidebar({ open, setOpen, handleSignOut }: Props) {
             >
 
                 <img className="sidebar-logo" src={logo} alt="logo" />
-                <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" className="sidebar-svg" onClick={setOpen} viewBox="0 0 24 24" fill="none">
-                    <g clip-path="url(#clip0_429_11079)">
-                        <path d="M4 4.00098H20V18.001C20 19.1055 19.1046 20.001 18 20.001H6C4.89543 20.001 4 19.1055 4 18.001V4.00098Z" stroke="#292929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M14 10.0001L10 14.0001" stroke="#292929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M10 10.0001L14 14.0001" stroke="#292929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_429_11079">
-                            <rect width="24" height="24" fill="white" />
-                        </clipPath>
-                    </defs>
+                <svg xmlns="http://www.w3.org/2000/svg" onClick={setOpen} width="40px" height="40px" viewBox="0 0 24 24" fill="currentColor" className="sidebar-svg">
+                    <path fillRule="evenodd" fill="currentColor" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clipRule="evenodd" />
                 </svg>
                 <div className="sidebar-select-wrap">
                     <div className="sidebar-selector" onClick={() => {
