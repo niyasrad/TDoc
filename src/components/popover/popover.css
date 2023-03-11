@@ -23,6 +23,7 @@
     right: -10px;
     top: -10px;
     color: #670557;
+    cursor: pointer;
 }
 .popover-top{
     display: flex;

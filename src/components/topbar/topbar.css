@@ -9,6 +9,15 @@
     min-height: 100px;
     background-color: white;
 }
+.close-svg{
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    color: #670557;
+    cursor: pointer;
+}
 .topbar-search{
     background: #FFFFFF;
     box-shadow: 0px 4px 12px rgba(23, 20, 199, 0.25);
