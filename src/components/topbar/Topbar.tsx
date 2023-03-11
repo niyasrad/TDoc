@@ -39,27 +39,6 @@ export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
         closed: { opacity: 0, transition: { duration: 0.2 } }
     };
 
-    const variants = {
-        open: {
-            clipPath: "inset(0% 0% 0% 0% round 10px)",
-            transition: {
-                type: "spring",
-                bounce: 0,
-                duration: 0.2,
-                delayChildren: 0.3,
-                staggerChildren: 0.05
-            }
-        },
-        closed: {
-            clipPath: "inset(10% 50% 90% 50% round 10px)",
-            transition: {
-                type: "spring",
-                bounce: 0,
-                duration: 0.3
-            }
-        }
-    };
-
     return (
         <>
             <div className='topbar'>
@@ -127,14 +106,7 @@ export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
                         exit="closed"
                     >
                         <div className='topbar-overlay-category' onClick={() => setTopBarOpen(false)}></div>
-                        <AnimatePresence>
-                            <motion.div
-                                className='topbar-search-query'
-                                variants={variants}
-                                initial="closed"
-                                animate={topBarOpen ? "open" : "closed"}
-                                exit="closed"
-                            >
+                                <div className='topbar-search-query'>
                                 <p className="topbar-filter-heading">Filter</p>
                                 <div className="topbar-divided">
                                     <div className="topbar-filter-menu">
@@ -162,8 +134,7 @@ export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
                                         <div className='topbar-button options-save' onClick={onSave}>Save</div>
                                     </div>
                                 </div>
-                            </motion.div>
-                        </AnimatePresence>
+                                </div>
                     </motion.div>
                 }
             </AnimatePresence>
