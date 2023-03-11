@@ -21,7 +21,7 @@ export default function Popover({ handleClose, handleAdd }: any) {
         if (name.length < 3) return;
         else {
             try {
-                await axios.post('https://tdoc.onrender.com/tasks/category', { category: name })
+                await axios.post('https://tdoc.onrender.com/categories/create', { category: name })
                 .finally(() => {
                     handleAdd();
                     handleClose()

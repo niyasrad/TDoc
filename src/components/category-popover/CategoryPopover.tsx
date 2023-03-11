@@ -18,7 +18,7 @@ export default function CategoryPopover({ handleClose, prevName, addTask }: any)
 
     const handleDelete = async () => {
         try {
-            await axios.post('https://tdoc.onrender.com/tasks/category/delete', { category: prevName })
+            await axios.post('https://tdoc.onrender.com/categories/delete', { category: prevName })
                 .finally( () => {
                     addTask();
                     handleClose();
