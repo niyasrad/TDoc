@@ -77,6 +77,7 @@ function App() {
     await setToken(token);
     await setUsername(username);
     Cookies.set('token', token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     setAuth(true);
   }
   return (
