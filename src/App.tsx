@@ -19,8 +19,9 @@ interface AppContextType {
   setWrapper?: Dispatch<SetStateAction<boolean>>,
   setSideBarOpen?: Dispatch<SetStateAction<boolean>>,
   setChange?: Dispatch<SetStateAction<boolean>>,
-  setQuery?: Dispatch<SetStateAction<boolean>>,
-  handleSignOut?: () => void
+  setQuery?: Dispatch<SetStateAction<any>>,
+  handleSignOut?: () => void,
+  onAuth?: (token: string, username: string) => Promise<void>
 }
 
 const defaultContext = {
@@ -115,22 +116,23 @@ function App() {
       setSideBarOpen,
       setChange,
       setQuery,
-      handleSignOut
+      handleSignOut,
+      onAuth
     }}>
       <div className="App">
         <div className='app-main'>
           {loaded ?
             authenticated ?
               <>
-                <Sidebar change={(selected: string) => setWrapper(selected === "ABOUT" ? false : true)} username={username} open={sideBarOpen} setOpen={() => { setSideBarOpen(!sideBarOpen) }} handleSignOut={handleSignOut} />
-
-                {wrapper ?
-                  <>
-                    <Topbar handleAdd={() => setChange(!change)} setOpen={() => { setSideBarOpen(!sideBarOpen) }} query={query} setQuery={setQuery} />
-                    <CardWrapper />
-                  </>
-                  :
-                  <About setOpen={() => { setSideBarOpen(!sideBarOpen) }} />
+                <Sidebar />
+                {
+                  wrapper ?
+                    <>
+                      <Topbar />
+                      <CardWrapper />
+                    </>
+                    :
+                    <About />
                 }
               </>
               :
@@ -138,7 +140,7 @@ function App() {
                 <div className='app-logo'>
                   <img src={logo} alt='app-logo' />
                 </div>
-                <Authentication onauth={onAuth} />
+                <Authentication />
               </div>
             :
             <>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './sidebar.css';
 import logo from '../../assets/logo.png';
 import { motion, AnimatePresence } from "framer-motion";
+import { useAppContext } from "../../App";
 
 interface Props {
     open: boolean,
@@ -11,7 +12,9 @@ interface Props {
     change: any
 }
 
-export default function Sidebar({ username, open, setOpen, handleSignOut, change }: Props) {
+export default function Sidebar() {
+
+    const { username, sidebarOpen, setWrapper, setSideBarOpen, handleSignOut } = useAppContext();
 
     const [tasks, setTasks] = useState(true);
     const [about, setAbout] = useState(false);
@@ -39,23 +42,23 @@ export default function Sidebar({ username, open, setOpen, handleSignOut, change
 
     return (
         <>
-            <div className={ open ?"sidebar-bg active": "sidebar-bg"} onClick={setOpen}></div>
+            <div className={ sidebarOpen ?"sidebar-bg active": "sidebar-bg"} onClick={() => setSideBarOpen!(!sidebarOpen)}></div>
             <motion.div
                 className="sidebar-mobile"
                 variants={variants}
                 initial="closed"
-                animate={open ? "open" : "closed"}
+                animate={sidebarOpen ? "open" : "closed"}
             >
 
                 <img className="sidebar-logo" src={logo} alt="logo" />
-                <svg xmlns="http://www.w3.org/2000/svg" onClick={setOpen} width="40px" height="40px" viewBox="0 0 24 24" fill="currentColor" className="sidebar-svg">
+                <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setSideBarOpen!(!sidebarOpen)} width="40px" height="40px" viewBox="0 0 24 24" fill="currentColor" className="sidebar-svg">
                     <path fillRule="evenodd" fill="currentColor" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clipRule="evenodd" />
                 </svg>
                 <div className="sidebar-select-wrap">
                     <div className="sidebar-selector" onClick={() => {
                         setTasks(true);
                         setAbout(false);
-                        change("TASKS");
+                        setWrapper!(true);
                     }
 
                     }>
@@ -69,7 +72,7 @@ export default function Sidebar({ username, open, setOpen, handleSignOut, change
                         () => {
                             setTasks(false);
                             setAbout(true);
-                            change("ABOUT");
+                            setWrapper!(false);
                         }
                     }>
                         <div className={about ? "selector-option active" : "selector-option"}>
@@ -100,7 +103,7 @@ export default function Sidebar({ username, open, setOpen, handleSignOut, change
                     <div className="sidebar-selector" onClick={() => {
                         setTasks(true);
                         setAbout(false);
-                        change("TASKS");
+                        setWrapper!(true);
                     }
 
                     }>
@@ -114,7 +117,7 @@ export default function Sidebar({ username, open, setOpen, handleSignOut, change
                         () => {
                             setTasks(false);
                             setAbout(true);
-                            change("ABOUT");
+                            setWrapper!(false);
                         }
                     }>
                         <div className={about ? "selector-option active" : "selector-option"} >

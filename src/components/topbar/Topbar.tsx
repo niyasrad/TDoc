@@ -3,9 +3,12 @@ import './topbar.css';
 import logo from '../../assets/logo.png';
 import { motion, AnimatePresence } from "framer-motion";
 import Popover from "../popover/Popover";
+import { useAppContext } from "../../App";
 
 
-export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
+export default function Topbar() {
+
+    const { change, query, sidebarOpen, setQuery, setChange, setSideBarOpen } = useAppContext();
 
     const [search, setSearch] = useState('');
     const [topBarOpen, setTopBarOpen] = useState(false);
@@ -17,14 +20,14 @@ export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
 
     const onSave = async () => {
         if (highPriority !== lowPriority) {
-            await setQuery({ priority: highPriority ? "HIGH" : "LOW", done: doneTasks })
+            await setQuery!({ priority: highPriority ? "HIGH" : "LOW", done: doneTasks })
         } else {
-            await setQuery({ done: doneTasks })
+            await setQuery!({ done: doneTasks })
         }   
         setTopBarOpen(false);
     }
     const onReset = async () => {
-        await setQuery({});
+        await setQuery!({});
         setLowPriority(true);
         setHighPriority(true);
         setDoneTasks(false);
@@ -43,7 +46,7 @@ export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
         <>
             <div className='topbar'>
                 <div className="topbar-mobile-top">
-                    <svg xmlns="http://www.w3.org/2000/svg" onClick={setOpen} width="800px" height="800px" viewBox="0 0 24 24" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setSideBarOpen!(!sidebarOpen)} width="800px" height="800px" viewBox="0 0 24 24" fill="none">
                         <path d="M4 17H20M4 12H20M4 7H20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <img src={logo} alt="logo" />
@@ -60,7 +63,7 @@ export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
                             }} />
                             <div className="topbar-svg-last"
                                 onClick={() => {
-                                    setQuery({ ...query, task: search })
+                                    setQuery!({ ...query, task: search })
                                 }}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
@@ -91,7 +94,7 @@ export default function Topbar({ setOpen, handleAdd, query, setQuery }: any) {
                         exit="closed"
                     >
                         <div className='topbar-overlay-category' onClick={() => setCreateCategory(false)}></div>
-                        <Popover handleAdd={handleAdd} handleClose={() => setCreateCategory(false)} />
+                        <Popover handleAdd={() => setChange!(!change)} handleClose={() => setCreateCategory(false)} />
                     </motion.div>
                 }
             </AnimatePresence>
