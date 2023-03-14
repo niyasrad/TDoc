@@ -5,6 +5,7 @@ import './cardwrapper.css';
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import CategoryPopover from "../../components/category-popover/CategoryPopover";
+import { useAppContext } from "../../App";
 
 export interface CardItems {
     _id: string
@@ -19,19 +20,15 @@ export interface CardItems {
     done: boolean
 }
 
-interface Props {
-    token: string,
-    handleSignOut: any;
-    change: boolean;
-    query: any;
-}
 
-export default function CardWrapper({ token, handleSignOut, change, query }: Props) {
+export default function CardWrapper() {
 
     const [open, setOpen] = useState<boolean>(false);
     const [items, setItems] = useState([])
     const [startDate, setStartDate] = useState(new Date());
     const [forcedUpdate, setForced] = useState<boolean>(false);
+    
+    const { query, change, handleSignOut } = useAppContext();
 
     const dropDownVariant = {
         open: {
@@ -89,7 +86,7 @@ export default function CardWrapper({ token, handleSignOut, change, query }: Pro
     };
 
     useEffect(() => {
-        axios.post('https://tdoc.onrender.com/tasks/list', { ...query, token })
+        axios.post('https://tdoc.onrender.com/tasks/list', { ...query })
             .then((res) => res.data)
             .then((data) => {
                 setItems(data.tasks)
@@ -100,7 +97,9 @@ export default function CardWrapper({ token, handleSignOut, change, query }: Pro
 
             })
             .catch((err) => {
-                console.log(err);
+                if (err.response.status === 401) {
+                    handleSignOut!()
+                }
             })
     }, [query, forcedUpdate, change])
     return (
@@ -159,7 +158,6 @@ export default function CardWrapper({ token, handleSignOut, change, query }: Pro
                                                     due={card.due}
                                                     priority={card.priority}
                                                     handleDel={handleDel}
-                                                    token={token}
                                                     done={card.done}
                                                 /> : null
                                             ))
@@ -180,7 +178,7 @@ export default function CardWrapper({ token, handleSignOut, change, query }: Pro
                                                     className="card-absolute"
                                                 >
                                                     <div className='card-add-task-bg' onClick={() => setOpenAddTask({[category.category] : false})}></div>      
-                                                    <Popup handleClick={() => setOpenAddTask({[category.category] : false})} addTask={handleAdd} token={token} category={category.category} />
+                                                    <Popup handleClick={() => setOpenAddTask({[category.category] : false})} addTask={handleAdd} category={category.category} />
                                                 </motion.div>
                                             }
                                         </AnimatePresence>
@@ -198,7 +196,7 @@ export default function CardWrapper({ token, handleSignOut, change, query }: Pro
                                         className="card-absolute"
                                     >
                                         <div className='card-add-task-bg' onClick={() => setOpenEditCategories({[category.category] : false})}></div>      
-                                        <CategoryPopover handleClose={() => setOpenEditCategories({[category.category] : false})} addTask={handleAdd} token={token} prevName={category.category} />
+                                        <CategoryPopover handleClose={() => setOpenEditCategories({[category.category] : false})} addTask={handleAdd} prevName={category.category} />
                                     </motion.div>
                                 }
                             </AnimatePresence>

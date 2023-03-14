@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext, useContext, SetStateAction, Dispatch } from 'react';
 import logo from './assets/logo.png'
 import './App.css';
 import CardWrapper from './containers/cardwrapper/CardWrapper';
@@ -11,17 +11,41 @@ import Topbar from './components/topbar/Topbar';
 import About from './containers/about/About';
 
 
+interface AppContextType {
+  username: string,
+  sidebarOpen: boolean,
+  query: any,
+  change: boolean,
+  setWrapper?: Dispatch<SetStateAction<boolean>>,
+  setSideBarOpen?: Dispatch<SetStateAction<boolean>>,
+  setChange?: Dispatch<SetStateAction<boolean>>,
+  setQuery?: Dispatch<SetStateAction<boolean>>,
+  handleSignOut?: () => void
+}
+
+const defaultContext = {
+  username: "",
+  sidebarOpen: false,
+  query: {},
+  change: false
+}
+
+const AppContext = createContext<AppContextType>(defaultContext)
+
+export const useAppContext = () => useContext(AppContext)
+
+
 function App() {
 
   const [loaded, setLoaded] = useState<boolean>(false);
   const [authenticated, setAuth] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
-  const [sideBarOpen, setSideBarOpen] = useState(false);
-  const [username, setUsername] = useState('User');
-  const [change, setChange] = useState(false);
-  const [wrapper, setWrapper] = useState(true);
+  const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>('User');
+  const [change, setChange] = useState<boolean>(false);
+  const [wrapper, setWrapper] = useState<boolean>(true);
   const [query, setQuery] = useState<any>({});
-  console.log(wrapper)
+
   const tips = [
     "Use the Categories to keep your tasks aligned and organized.",
     "If you do not clear the tasks before the due, you'll be given alerts.",
@@ -37,7 +61,7 @@ function App() {
     setToken('')
     Cookies.remove('token');
   }
-  function sleep (time: number) {
+  function sleep(time: number) {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
   useEffect(() => {
@@ -80,53 +104,67 @@ function App() {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     setAuth(true);
   }
+
   return (
-    <div className="App">
-      <div className='app-main'>
-        {loaded ?
-          authenticated ?
-            <>
-              <Sidebar change={(selected: string) => setWrapper(selected === "ABOUT" ? false : true)} username={username} open={sideBarOpen} setOpen={() => { setSideBarOpen(!sideBarOpen) }} handleSignOut={handleSignOut} />
-              
-              { wrapper ? 
-                <>
-                  <Topbar handleAdd={() => setChange(!change)} setOpen={() => { setSideBarOpen(!sideBarOpen) }} query={query} setQuery={setQuery}/>
-                  <CardWrapper change={change} token={token} handleSignOut={handleSignOut} query={query} /> 
-                </> 
-                :
-                  <About setOpen={() => { setSideBarOpen(!sideBarOpen) }}/>
-              }
-            </>
+    <AppContext.Provider value={{
+      username,
+      sidebarOpen: sideBarOpen,
+      query,
+      change,
+      setWrapper,
+      setSideBarOpen,
+      setChange,
+      setQuery,
+      handleSignOut
+    }}>
+      <div className="App">
+        <div className='app-main'>
+          {loaded ?
+            authenticated ?
+              <>
+                <Sidebar change={(selected: string) => setWrapper(selected === "ABOUT" ? false : true)} username={username} open={sideBarOpen} setOpen={() => { setSideBarOpen(!sideBarOpen) }} handleSignOut={handleSignOut} />
+
+                {wrapper ?
+                  <>
+                    <Topbar handleAdd={() => setChange(!change)} setOpen={() => { setSideBarOpen(!sideBarOpen) }} query={query} setQuery={setQuery} />
+                    <CardWrapper />
+                  </>
+                  :
+                  <About setOpen={() => { setSideBarOpen(!sideBarOpen) }} />
+                }
+              </>
+              :
+              <div className='app-real'>
+                <div className='app-logo'>
+                  <img src={logo} alt='app-logo' />
+                </div>
+                <Authentication onauth={onAuth} />
+              </div>
             :
-            <div className='app-real'>
-              <div className='app-logo'>
-                <img src={logo} alt='app-logo' />
-              </div>
-              <Authentication onauth={onAuth} />
-            </div>
-          :
-          <>
-            <div className="app-real">
-              <div className='app-logo'>
-                <img src={logo} alt='app-logo' />
-              </div>
-              <div className="app-center">
-                <div className="loadingio-spinner-eclipse-hudbooqsn0d"><div className="ldio-c1dvvx8rgm">
-                  <div></div>
-                </div></div>
-                <div className="app-bottom">
-                  <div className="app-center-loading-text">Connecting with the Server</div>
-                  <div className="app-center-tip-container">
-                    <div className="app-center-tip-text">{tips[index]}</div>
+            <>
+              <div className="app-real">
+                <div className='app-logo'>
+                  <img src={logo} alt='app-logo' />
+                </div>
+                <div className="app-center">
+                  <div className="loadingio-spinner-eclipse-hudbooqsn0d"><div className="ldio-c1dvvx8rgm">
+                    <div></div>
+                  </div></div>
+                  <div className="app-bottom">
+                    <div className="app-center-loading-text">Connecting with the Server</div>
+                    <div className="app-center-tip-container">
+                      <div className="app-center-tip-text">{tips[index]}</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </>
-        }
+            </>
+          }
 
+        </div>
       </div>
-    </div>
+    </AppContext.Provider>
+
   );
 }
 

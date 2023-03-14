@@ -11,10 +11,9 @@ interface CardProps{
     due: Date,
     priority: "HIGH" | "LOW",
     handleDel: any,
-    token: string,
     done: boolean
 }
-export default function Card( { _id, title, description, task, due, priority, handleDel, token, done }: CardProps) {
+export default function Card( { _id, title, description, task, due, priority, handleDel, done }: CardProps) {
 
     const variants = {
         open: {
@@ -30,7 +29,7 @@ export default function Card( { _id, title, description, task, due, priority, ha
 
     const handleDelete = async () => {
         try {
-            await axios.post('https://tdoc.onrender.com/tasks/delete', { _id, token })
+            await axios.post('https://tdoc.onrender.com/tasks/delete', { _id })
         } catch(err) {
             console.log(err)
         }
