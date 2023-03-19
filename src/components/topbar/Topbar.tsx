@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 import './topbar.css';
 import logo from '../../assets/logo.png';
 import { motion, AnimatePresence } from "framer-motion";
 import Popover from "../popover/Popover";
 import { useAppContext } from "../../App";
 
+interface TopbarContextType{
+    createCategory: boolean,
+    setCreateCategory? : Dispatch<SetStateAction<boolean>>,
+}
+
+const defaultContext = {
+    createCategory: false,
+}
+
+const TopbarContext = createContext<TopbarContextType>(defaultContext)
+export const useTopbarContext = () => useContext(TopbarContext)
 
 export default function Topbar() {
 
-    const { change, query, sidebarOpen, setQuery, setChange, setSideBarOpen } = useAppContext();
+    const { query, sidebarOpen, setQuery, setSideBarOpen } = useAppContext();
 
     const [search, setSearch] = useState('');
     const [topBarOpen, setTopBarOpen] = useState(false);
@@ -43,7 +54,10 @@ export default function Topbar() {
     };
 
     return (
-        <>
+        <TopbarContext.Provider value={{
+            createCategory,
+            setCreateCategory
+        }}>
             <div className='topbar'>
                 <div className="topbar-mobile-top">
                     <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setSideBarOpen!(!sidebarOpen)} width="800px" height="800px" viewBox="0 0 24 24" fill="none">
@@ -94,7 +108,7 @@ export default function Topbar() {
                         exit="closed"
                     >
                         <div className='topbar-overlay-category' onClick={() => setCreateCategory(false)}></div>
-                        <Popover handleAdd={() => setChange!(!change)} handleClose={() => setCreateCategory(false)} />
+                        <Popover />
                     </motion.div>
                 }
             </AnimatePresence>
@@ -144,6 +158,6 @@ export default function Topbar() {
                     </motion.div>
                 }
             </AnimatePresence>
-        </>
+        </TopbarContext.Provider>
     )
 }
