@@ -4,8 +4,15 @@ import './popup.css';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useCardWrapperContext } from "../../containers/cardwrapper/CardWrapper";
+import { useAppContext } from "../../App";
 
-export default function Popup({ addTask, handleClick, token, category }: any) {
+export default function Popup({ category }: any) {
+
+    const { change, setChange } = useAppContext(); 
+    const { setOpenAddTask } = useCardWrapperContext();
+
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [task, setTask] = useState('');
@@ -39,22 +46,21 @@ export default function Popup({ addTask, handleClick, token, category }: any) {
             task: task, 
             due: dueDate, 
             priority: severity, 
-            category: category,
-            token: token
+            category: category
         };
         axios.post('https://tdoc.onrender.com/tasks/create', taskBody)
-        .then(response => {
+        .then(() => {
             setTitle('');
             setDescription('');
             setTask('');
             setDueDate(new Date());
             setSeverity('');
-            addTask();
+            setChange!(!change);
         })
         .catch(error => {
             console.log(error);
         })
-        handleClick();
+        setOpenAddTask!({[category.category] : false})
       };
 
     const [startDate, setStartDate] = useState(new Date());
@@ -88,7 +94,7 @@ export default function Popup({ addTask, handleClick, token, category }: any) {
                 </div>
             </div>
             <div className='popup-select'>
-                <div className='CANCEL popup-button' onClick={handleClick}>Cancel</div>
+                <div className='CANCEL popup-button' onClick={() => setOpenAddTask!({[category.category] : false})}>Cancel</div>
                 <div className='ADD popup-button' onClick={handleSubmit}>Add</div>
             </div>
         </motion.div>

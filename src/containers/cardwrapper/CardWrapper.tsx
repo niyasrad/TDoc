@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import Card from "../../components/card/Card";
 import Popup from "../../components/popup/Popup";
 import './cardwrapper.css';
@@ -19,16 +19,38 @@ export interface CardItems {
     handleDel: any,
     done: boolean
 }
+interface CardWrapperContextType {
+    open: boolean,
+    items: Array<any>,
+    openEditCategories: any,
+    openCategories: any,
+    openAddTask: any,
+    setOpen? : Dispatch<SetStateAction<boolean>>    
+    setItems? : Dispatch<SetStateAction<Array<any>>>
+    setOpenEditCategories? : Dispatch<SetStateAction<any>>,
+    setOpenCategories? : Dispatch<SetStateAction<any>>,
+    setOpenAddTask? : Dispatch<SetStateAction<any>>,
+    toggleCategory? : (category: string) => void,
+    toggleEditCategory? : (category: string) => void
+}
 
+const defaultContext = {
+    open: false,
+    items: [],
+    openEditCategories: {},
+    openCategories: {},
+    openAddTask: {}
+}
+
+const CardWrapperContext = createContext<CardWrapperContextType>(defaultContext)
+export const useCardWrapperContext = () => useContext(CardWrapperContext)
 
 export default function CardWrapper() {
 
     const [open, setOpen] = useState<boolean>(false);
-    const [items, setItems] = useState([])
-    const [startDate, setStartDate] = useState(new Date());
-    const [forcedUpdate, setForced] = useState<boolean>(false);
+    const [items, setItems] = useState<Array<any>>([])
     
-    const { query, change, handleSignOut } = useAppContext();
+    const { query, change, setChange, handleSignOut } = useAppContext();
 
     const dropDownVariant = {
         open: {
@@ -58,13 +80,13 @@ export default function CardWrapper() {
     };
 
     const handleAdd = () => {
-        setForced(!forcedUpdate);
+        setChange!(!change);
     }
     const handleClick = () => {
         setOpen(!open);
     }
     const handleDel = () => {
-        setForced(!forcedUpdate)
+        setChange!(!change);
     }
     const [openEditCategories, setOpenEditCategories] = useState<any>({});
     const [openCategories, setOpenCategories] = useState<any>({});
@@ -101,9 +123,22 @@ export default function CardWrapper() {
                     handleSignOut!()
                 }
             })
-    }, [query, forcedUpdate, change])
+    }, [query, change])
     return (
-        <>
+        <CardWrapperContext.Provider value={{
+            open,
+            items,
+            openCategories,
+            openEditCategories,
+            openAddTask,
+            setOpen,
+            setItems,
+            setOpenCategories,
+            setOpenEditCategories,
+            setOpenAddTask,
+            toggleCategory,
+            toggleEditCategory
+        }}>
             <div className='card-wrapper'>
                 {
                     items &&
@@ -157,7 +192,6 @@ export default function CardWrapper() {
                                                     task={card.task}
                                                     due={card.due}
                                                     priority={card.priority}
-                                                    handleDel={handleDel}
                                                     done={card.done}
                                                 /> : null
                                             ))
@@ -178,7 +212,7 @@ export default function CardWrapper() {
                                                     className="card-absolute"
                                                 >
                                                     <div className='card-add-task-bg' onClick={() => setOpenAddTask({[category.category] : false})}></div>      
-                                                    <Popup handleClick={() => setOpenAddTask({[category.category] : false})} addTask={handleAdd} category={category.category} />
+                                                    <Popup category={category.category} />
                                                 </motion.div>
                                             }
                                         </AnimatePresence>
@@ -205,6 +239,6 @@ export default function CardWrapper() {
                 }
 
             </div>
-        </>
+        </CardWrapperContext.Provider>
     )
 }

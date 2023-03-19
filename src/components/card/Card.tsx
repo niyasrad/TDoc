@@ -1,6 +1,7 @@
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
+import { useAppContext } from "../../App";
 import './card.css';
 
 interface CardProps{
@@ -10,11 +11,11 @@ interface CardProps{
     task: string,
     due: Date,
     priority: "HIGH" | "LOW",
-    handleDel: any,
     done: boolean
 }
-export default function Card( { _id, title, description, task, due, priority, handleDel, done }: CardProps) {
+export default function Card( { _id, title, description, task, due, priority, done }: CardProps) {
 
+    const { change, setChange } = useAppContext();
     const variants = {
         open: {
             height: "auto",
@@ -33,7 +34,7 @@ export default function Card( { _id, title, description, task, due, priority, ha
         } catch(err) {
             console.log(err)
         }
-        handleDel();
+        setChange!(!change)
     }
     return (
         <div className={done ? "card-surface grayglow" :priority === "HIGH" ? "card-surface pinkglow" : "card-surface blueglow"} onClick={() => setExpandTask(!expandTask)} >
