@@ -1,5 +1,5 @@
 # T-DOC 
-
+[![wakatime](https://wakatime.com/badge/github/niyasrad/TDoc.svg)](https://wakatime.com/badge/github/niyasrad/TDoc)
 ![1280 x 769 px](https://user-images.githubusercontent.com/84234554/227674732-cf053d58-3cc0-4323-b746-a148c5b4dd1d.png)
 
 TDoc is a task manager that uses JWT secure authentication with auth tokens. You can create categories and tasks, and give them title, description, due date, and priority. The app sends daily email notifications if you have any tasks due.
